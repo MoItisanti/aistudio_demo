@@ -53,7 +53,7 @@ export const NAV_ITEMS: NavItem[] = [
 export const MONTHS = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
 
 export const PROFIT_PIE_DATA = [
-  { name: 'İzmir', value: 45, color: CHART_PALETTE[3] },
+  { name: 'İzmir', value: 45, color: CHART_PALETTE[4] },
   { name: 'Eskişehir', value: 35, color: CHART_PALETTE[1] },
   { name: 'Urfa', value: 20, color: CHART_PALETTE[2] },
 ];

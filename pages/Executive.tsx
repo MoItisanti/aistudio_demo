@@ -215,7 +215,7 @@ const ExecutiveContent = () => (
                 <span className="text-3xl font-black tracking-tight">4.3</span>
                 <span className="text-base font-bold opacity-60">M</span>
               </div>
-              <div className="mt-2 flex items-center gap-1 text-[10px] text-theme-secondary font-semibold bg-theme-card-light/90 w-fit px-2 py-0.5 rounded-full shadow-sm">
+              <div className="mt-2 flex items-center gap-1 text-[10px] text-theme-success font-semibold bg-theme-card-light/90 w-fit px-2 py-0.5 rounded-full shadow-sm">
                 <ArrowUpRight size={10} /> +12.5%
               </div>
             </div>
@@ -244,12 +244,12 @@ const ExecutiveContent = () => (
             <AreaChart data={TREND_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="color2024" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="10%" stopColor={THEME_COLORS.secondary} stopOpacity={0.4} />
-                  <stop offset="95%" stopColor={THEME_COLORS.secondary} stopOpacity={0} />
+                  <stop offset="10%" stopColor={CHART_PALETTE[4]} stopOpacity={0.4} />
+                  <stop offset="95%" stopColor={CHART_PALETTE[4]} stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="color2025" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={CHART_PALETTE[3]} stopOpacity={0.25} />
-                  <stop offset="95%" stopColor={CHART_PALETTE[3]} stopOpacity={0} />
+                  <stop offset="5%" stopColor={CHART_PALETTE[2]} stopOpacity={0.25} />
+                  <stop offset="95%" stopColor={CHART_PALETTE[2]} stopOpacity={0} />
                 </linearGradient>
               </defs>
               <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 9, fontWeight: 500 }} />
@@ -271,8 +271,8 @@ const ExecutiveContent = () => (
                   backgroundColor: 'rgba(248, 250, 252, 0.5)'
                 }}
               />
-              <Area type="monotone" dataKey="y2024" name="2024 Satış" stroke={THEME_COLORS.secondary} fillOpacity={1} fill="url(#color2024)" strokeWidth={2.5} />
-              <Area type="monotone" dataKey="y2025" name="2025 Satış" stroke={CHART_PALETTE[3]} fillOpacity={1} fill="url(#color2025)" strokeWidth={2.5} />
+              <Area type="monotone" dataKey="y2024" name="2024 Satış" stroke={CHART_PALETTE[4]} fillOpacity={1} fill="url(#color2024)" strokeWidth={2.5} />
+              <Area type="monotone" dataKey="y2025" name="2025 Satış" stroke={CHART_PALETTE[2]} fillOpacity={1} fill="url(#color2025)" strokeWidth={2.5} />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -348,17 +348,17 @@ const ExecutiveContent = () => (
           <div className="grid grid-cols-2 gap-3">
             <div className="p-3 bg-theme-bg-light dark:bg-theme-bg-dark/80/50 rounded-xl flex flex-col justify-between border border-slate-200 dark:border-slate-700/50">
               <span className="text-[8px] font-semibold text-theme-text-muted/80 uppercase">Mavi Yaka</span>
-              <span className="text-lg font-black text-theme-text-main dark:text-theme-secondary">4,830</span>
+              <span className="text-lg font-black text-theme-text-main/80 dark:text-theme-secondary">4,830</span>
             </div>
             <div className="p-3 bg-theme-bg-light dark:bg-theme-bg-dark/80/50 rounded-xl flex flex-col justify-between border border-slate-200 dark:border-slate-700/50">
               <span className="text-[8px] font-semibold text-theme-text-muted/80 uppercase">Beyaz Yaka</span>
-              <span className="text-lg font-black text-theme-secondary">1,990</span>
+              <span className="text-lg font-black text-theme-text-main/80 dark:text-theme-secondary">1,990</span>
             </div>
           </div>
           <div className="pt-1">
             <div className="flex justify-between items-center mb-1">
               <p className="text-[9px] font-semibold text-theme-text-muted/80 uppercase">Turnover Oranı</p>
-              <span className="text-[10px] font-bold text-theme-accent">%56</span>
+              <span className="text-[10px] font-bold text-theme-text-muted/80">%56</span>
             </div>
             <AnimatedTurnoverBar value={56} />
           </div>

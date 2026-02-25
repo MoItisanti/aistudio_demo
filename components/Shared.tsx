@@ -161,7 +161,7 @@ export const CustomTooltip = ({ active, payload, label, type }: any) => {
           {y25 && (
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-theme-secondary"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-theme-accent"></span>
                 <span className="text-[11px] font-medium text-theme-text-main dark:text-gray-200">2025 Satış</span>
               </div>
               <span className="text-[11px] font-bold">{formatVal(y25.value)}</span>
@@ -170,7 +170,7 @@ export const CustomTooltip = ({ active, payload, label, type }: any) => {
           {y24 && (
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-theme-primary"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-theme-danger"></span>
                 <span className="text-[11px] font-medium text-theme-text-main dark:text-gray-200">2024 Satış</span>
               </div>
               <span className="text-[11px] font-bold text-theme-secondary">{formatVal(y24.value)}</span>
