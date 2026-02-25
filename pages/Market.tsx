@@ -477,7 +477,7 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
   };
 
   return (
-    <div className="p-4 lg:p-5 space-y-4 animate-in fade-in duration-500 relative">
+    <div className="p-4 lg:p-5 space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700 relative">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {MARKET_CHARTS.map((chart, index) => (
           <MarketFlipCard

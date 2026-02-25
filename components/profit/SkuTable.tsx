@@ -59,8 +59,8 @@ export const SkuTable = ({ title, data, valueLabel }: { title: string, data: any
           </button>
           <div className="flex-1 p-1.5 text-right">Cari</div>
           <div className="flex-1 p-1.5 text-right">%</div>
-          <div className="flex-1 p-1.5 text-right text-theme-text-muted/70">Bütçe %</div>
-          <div className="flex-1 p-1.5 text-right text-theme-text-muted/70">G.Yıl %</div>
+          <div className="flex-1 p-1.5 text-right">Bütçe %</div>
+          <div className="flex-1 p-1.5 text-right">G.Yıl %</div>
           <button
             className="flex-[1.2] p-1.5 flex items-center justify-end hover:text-theme-text-main dark:hover:text-gray-200 transition-colors"
             onClick={() => handleSort('value')}

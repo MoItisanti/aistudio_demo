@@ -56,7 +56,7 @@ export const FlipKpiCard = ({ title, value, chartData, budgetPct, yoyPct, budget
               <h3 className="text-sm font-semibold tracking-wider text-theme-text-main/80 dark:text-theme-text-dark-main">{title}</h3>
               <button
                 onClick={(e) => { e.stopPropagation(); setIsFlipped(true); }}
-                className="flex items-center justify-center w-8 h-8 rounded-lg bg-theme-bg-light dark:bg-theme-secondary/30 text-theme-secondary dark:text-theme-text-muted hover:bg-theme-bg-light/80 dark:hover:bg-gray-600 transition-colors duration-200 group/btn"
+                className="flex items-center justify-center w-8 h-8 rounded-lg bg-theme-bg-light dark:bg-theme-secondary/30 text-theme-secondary dark:text-theme-text-dark-main hover:bg-theme-bg-light/80 dark:hover:bg-gray-600 transition-colors duration-200 group/btn"
               >
                 <ArrowUpRight size={18} className="transition-transform group-hover/btn:scale-110" />
               </button>
@@ -88,11 +88,11 @@ export const FlipKpiCard = ({ title, value, chartData, budgetPct, yoyPct, budget
           <div className="px-4 py-2 flex justify-between items-center border-b border-slate-200 dark:border-slate-700/50 shrink-0">
             <div className="flex items-center gap-2">
               <TrendingUp size={14} className="text-theme-secondary" />
-              <span className="text-xs font-bold uppercase text-theme-text-muted dark:text-theme-text-dark-muted">12 Aylık Trend</span>
+              <span className="text-xs font-bold uppercase text-theme-text-muted dark:text-theme-text-dark-main">12 Aylık Trend</span>
             </div>
             <button
               onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}
-              className="p-1.5 rounded-full hover:bg-theme-bg-light dark:hover:bg-theme-secondary/20 text-theme-text-muted transition-colors"
+              className="p-1.5 rounded-full hover:bg-theme-bg-light dark:hover:bg-theme-secondary/20 text-theme-text-muted dark:text-theme-text-dark-main transition-colors"
             >
               <RotateCcw size={14} />
             </button>

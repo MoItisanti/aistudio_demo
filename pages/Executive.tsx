@@ -199,7 +199,7 @@ const PyramidChart = ({ data }: { data: typeof PYRAMID_DATA }) => {
 };
 
 const ExecutiveContent = () => (
-  <div className="p-4 lg:p-5 space-y-5 animate-in fade-in duration-500 max-w-[1600px] mx-auto">
+  <div className="p-4 lg:p-5 space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-[1600px] mx-auto">
     <div className="grid grid-cols-12 gap-4">
       <div className="col-span-12 lg:col-span-4 bg-theme-card-light dark:bg-theme-card-dark rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
         <CardHeader title="Kârlılık" />
