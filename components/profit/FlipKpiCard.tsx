@@ -24,11 +24,11 @@ const CustomSparklineTooltip = ({ active, payload }: any) => {
 export const FlipKpiCard = ({ title, value, chartData, budgetPct, yoyPct, budgetValue, pyValue }: FlipKpiCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // Format Value: "#.# Milyon ₺"
+  // Format Value: "X.X Milyon ₺" supports negative
   const formatCurrency = (val: number | undefined) => {
     if (val === undefined) return '-';
-    if (val >= 1000000) {
-      return `${(val / 1000000).toFixed(1)} Milyon ₺`;
+    if (Math.abs(val) >= 1000000) {
+      return `${(val / 1000000).toFixed(1).replace('.', ',')} Milyon ₺`;
     }
     return `${val.toLocaleString('tr-TR')} ₺`;
   };
@@ -50,7 +50,7 @@ export const FlipKpiCard = ({ title, value, chartData, budgetPct, yoyPct, budget
           {/* Left Gradient Bar */}
           <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-theme-secondary/50"></div>
 
-          <div className="p-6 pl-8 flex flex-col h-full justify-between">
+          <div className="p-6 pl-6 flex flex-col h-full justify-between">
             {/* Header */}
             <div className="flex justify-between items-start">
               <h3 className="text-sm font-semibold tracking-wider text-theme-text-main/80 dark:text-theme-text-dark-main">{title}</h3>
@@ -64,7 +64,7 @@ export const FlipKpiCard = ({ title, value, chartData, budgetPct, yoyPct, budget
 
             {/* Main Value */}
             <div>
-              <span className="text-4xl lg:text-5xl font-bold text-theme-text-main dark:text-theme-text-dark-main tracking-tight">
+              <span className="text-[36px] lg:text-[40px] xl:text-[44px] font-bold text-theme-text-main dark:text-theme-text-dark-main tracking-tight whitespace-nowrap">
                 {formattedValue}
               </span>
             </div>
@@ -75,7 +75,7 @@ export const FlipKpiCard = ({ title, value, chartData, budgetPct, yoyPct, budget
                 {yoyPct >= 0 ? <TrendingUp size={14} className="mr-1" /> : <TrendingDown size={14} className="mr-1" />}
                 {yoyPct > 0 ? '+' : ''}{yoyPct}%
               </div>
-              <span className="text-xs text-theme-text-muted/80 font-medium">vs. geçen yıl</span>
+              <span className="text-xs text-theme-text-muted/80 dark:text-theme-text-dark-muted font-medium">vs. geçen yıl</span>
             </div>
           </div>
         </div>

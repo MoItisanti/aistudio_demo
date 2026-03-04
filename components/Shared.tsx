@@ -105,7 +105,7 @@ export const CustomTooltip = ({ active, payload, label, type }: any) => {
     const data = payload[0].payload;
     return (
       <div className="bg-theme-card-light dark:bg-theme-card-dark p-3 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700/50">
-        <p className="text-[11px] font-semibold text-theme-secondary dark:text-theme-text-muted/80 mb-1">{data.source.name} → {data.target.name}</p>
+        <p className="text-[11px] font-semibold text-theme-text-muted dark:text-theme-text-dark-muted mb-1">{data.source.name} → {data.target.name}</p>
         <p className="text-sm font-bold text-theme-text-main dark:text-theme-text-dark-main">{formatVal(data.value)} TL</p>
       </div>
     );
@@ -114,7 +114,7 @@ export const CustomTooltip = ({ active, payload, label, type }: any) => {
     const data = payload[0].payload;
     return (
       <div className="bg-theme-card-light dark:bg-theme-card-dark p-3 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700/50">
-        <p className="text-[11px] font-semibold text-theme-secondary dark:text-theme-text-muted/80 mb-1">{data.name}</p>
+        <p className="text-[11px] font-semibold text-theme-text-muted dark:text-theme-text-dark-muted mb-1">{data.name}</p>
         <p className="text-sm font-bold text-theme-text-main dark:text-theme-text-dark-main">{formatVal(data.value)} TL</p>
       </div>
     );
@@ -126,10 +126,8 @@ export const CustomTooltip = ({ active, payload, label, type }: any) => {
     const isPos = diff > 0;
     const isZero = diff === 0;
     return (
-      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ml-2 ${isZero ? 'bg-theme-bg-light/80 text-theme-secondary/80 dark:bg-theme-secondary/30 dark:text-theme-text-muted' :
-        isPos ? 'bg-theme-secondary/10 text-theme-secondary dark:bg-theme-secondary/20 dark:text-theme-secondary' :
-          'bg-theme-secondary/10 text-theme-secondary dark:bg-theme-secondary/20 dark:text-theme-secondary'
-        }`}>
+      <span className={`text-[10px] font-bold ml-2 ${isZero ? 'text-theme-text-muted dark:text-theme-text-dark-muted' :
+        isPos ? 'text-theme-success' : 'text-theme-danger'}`}>
         {isPos ? '+' : ''}{diff.toFixed(1)}%
       </span>
     );
@@ -142,7 +140,7 @@ export const CustomTooltip = ({ active, payload, label, type }: any) => {
       <div className="bg-theme-card-light dark:bg-theme-card-dark p-3 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700/50 min-w-[120px]">
         <div className="flex items-center gap-2 mb-1">
           <div className="w-2.5 h-2.5 rounded-full shadow-sm" style={{ backgroundColor: color }}></div>
-          <span className="text-[11px] font-bold text-theme-secondary dark:text-theme-text-muted/80 uppercase tracking-wider">{item.payload.name}</span>
+          <span className="text-[11px] font-bold text-theme-text-muted dark:text-theme-text-dark-muted uppercase tracking-wider">{item.payload.name}</span>
         </div>
         <div className="flex items-baseline gap-1">
           <span className="text-lg font-black text-theme-text-main dark:text-theme-text-dark-main">{formatVal(item.value)}</span>
@@ -156,29 +154,29 @@ export const CustomTooltip = ({ active, payload, label, type }: any) => {
     const y25 = payload.find((p: any) => p.dataKey === 'y2025');
     return (
       <div className="bg-theme-card-light dark:bg-theme-card-dark p-3.5 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700/50 min-w-[180px]">
-        <p className="text-[11px] font-semibold text-theme-secondary dark:text-theme-text-muted/80 mb-2.5 uppercase tracking-wider">{label}</p>
+        <p className="text-[11px] font-bold text-theme-text-muted dark:text-theme-text-dark-muted mb-2.5 uppercase tracking-wider">{label}</p>
         <div className="space-y-2">
           {y25 && (
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-theme-accent"></span>
-                <span className="text-[11px] font-medium text-theme-text-main dark:text-gray-200">2025 Satış</span>
+                <span className="text-[11px] font-medium text-theme-text-muted dark:text-theme-text-dark-muted">2025 Satış</span>
               </div>
-              <span className="text-[11px] font-bold">{formatVal(y25.value)}</span>
+              <span className="text-[11px] font-bold text-theme-text-main dark:text-theme-text-dark-main">{formatVal(y25.value)}</span>
             </div>
           )}
           {y24 && (
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-theme-danger"></span>
-                <span className="text-[11px] font-medium text-theme-text-main dark:text-gray-200">2024 Satış</span>
+                <span className="text-[11px] font-medium text-theme-text-muted dark:text-theme-text-dark-muted">2024 Satış</span>
               </div>
-              <span className="text-[11px] font-bold text-theme-secondary">{formatVal(y24.value)}</span>
+              <span className="text-[11px] font-bold text-theme-text-main dark:text-theme-text-dark-main">{formatVal(y24.value)}</span>
             </div>
           )}
           {y24 && y25 && (
             <div className="mt-2.5 pt-2.5 border-t border-slate-200 dark:border-slate-700/50 flex justify-between items-center">
-              <span className="text-[10px] font-semibold text-theme-text-muted/80">Yıllık Değişim</span>
+              <span className="text-[10px] font-semibold text-theme-text-muted">Yıllık Değişim</span>
               {renderGrowth(y25.value, y24.value)}
             </div>
           )}
@@ -192,7 +190,7 @@ export const CustomTooltip = ({ active, payload, label, type }: any) => {
     const names: Record<string, string> = { sales: 'Satış', budget: 'Bütçe', forecast: 'Tahmin' };
     return (
       <div className="bg-theme-card-light dark:bg-theme-card-dark p-3.5 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700/50 min-w-[200px]">
-        <p className="text-[11px] font-semibold text-theme-secondary dark:text-theme-text-muted/80 mb-3 uppercase tracking-wider">{label}</p>
+        <p className="text-[11px] font-bold text-theme-text-muted dark:text-theme-text-dark-muted mb-3 uppercase tracking-wider">{label}</p>
         <div className="space-y-3">
           {groups.map(g => {
             const v24 = payload.find((p: any) => p.dataKey === `${g}24`);
@@ -203,12 +201,12 @@ export const CustomTooltip = ({ active, payload, label, type }: any) => {
                 <div className="flex justify-between items-end">
                   <div className="flex items-center gap-1.5">
                     <div className={`w-2 h-2 rounded-full ${g === 'sales' ? 'bg-theme-primary' : 'bg-gray-300 dark:bg-gray-600'}`}></div>
-                    <span className="text-[10px] font-semibold text-theme-secondary dark:text-theme-text-muted uppercase">{names[g]}</span>
+                    <span className="text-[10px] font-semibold text-theme-text-muted dark:text-theme-text-dark-muted uppercase">{names[g]}</span>
                   </div>
                   {v24 && v25 && renderGrowth(v25.value, v24.value)}
                 </div>
                 <div className="flex justify-between items-center text-[11px] pl-3.5">
-                  <span className="text-theme-text-muted/80">24: <strong className="text-theme-secondary/80 dark:text-theme-text-muted">{v24 ? formatVal(v24.value) : '-'}</strong></span>
+                  <span className="text-theme-text-muted/80">24: <strong className="text-theme-text-main dark:text-theme-text-dark-main">{v24 ? formatVal(v24.value) : '-'}</strong></span>
                   <span className="text-theme-text-muted/80">25: <strong className="text-theme-text-main dark:text-theme-text-dark-main">{v25 ? formatVal(v25.value) : '-'}</strong></span>
                 </div>
               </div>
@@ -223,13 +221,13 @@ export const CustomTooltip = ({ active, payload, label, type }: any) => {
     const sorted = [...payload].sort((a, b) => b.value - a.value);
     return (
       <div className="bg-theme-card-light dark:bg-theme-card-dark p-3.5 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700/50 min-w-[180px]">
-        <p className="text-[11px] font-semibold text-theme-secondary dark:text-theme-text-muted/80 mb-2.5 uppercase tracking-wider">{label}</p>
+        <p className="text-[11px] font-bold text-theme-text-muted dark:text-theme-text-dark-muted mb-2.5 uppercase tracking-wider">{label}</p>
         <div className="space-y-2">
           {sorted.map((entry: any, i: number) => (
             <div key={i} className="flex justify-between items-center text-[11px]">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: entry.color }}></span>
-                <span className={`font-medium ${i === 0 ? 'text-gray-900 dark:text-white' : 'text-theme-secondary dark:text-theme-text-muted/80'}`}>
+                <span className="font-medium text-theme-text-muted dark:text-theme-text-dark-muted">
                   {entry.name}
                 </span>
               </div>

@@ -124,8 +124,10 @@ export const ProfitSankeyChart = ({ darkMode }: { darkMode: boolean }) => {
           </div>
         </div>
       </CardHeader>
-      <div className="p-5 h-full">
-        <div ref={plotlyContainerRef} className="h-full w-full" />
+      <div className="p-0 sm:p-5 h-[calc(100%-60px)] w-full overflow-x-auto custom-scrollbar flex items-center">
+        <div className="min-w-[800px] md:min-w-full h-full p-5 sm:p-0">
+          <div ref={plotlyContainerRef} className="h-full w-full" />
+        </div>
       </div>
     </div>
   );

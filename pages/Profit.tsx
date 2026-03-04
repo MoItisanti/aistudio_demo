@@ -26,10 +26,10 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
     };
   };
 
-  const ciroData = getData('net');
+  const ciroData = getData('net_sales');
   const ebitdaData = getData('ebitda');
-  const katkiData = getData('gross_profit');
-  const iadeData = getData('returns');
+  const katkiData = getData('contribution');
+  const iadeData = getData('sales_returns');
 
   return (
     <div className="p-6 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">

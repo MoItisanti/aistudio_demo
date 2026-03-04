@@ -47,26 +47,43 @@ const SalesContent = () => {
 
   return (
     <div className="p-6">
-      {/* Sub-Navigation Tabs */}
-      <div className="flex items-center gap-2 mb-6 overflow-x-auto no-scrollbar pb-2">
-        <button
-          onClick={() => setActiveTab('daily')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${activeTab === 'daily' ? 'bg-theme-accent text-white shadow-md' : 'bg-theme-card-light dark:bg-theme-card-dark text-theme-text-main/80 dark:text-theme-text-dark-main hover:text-theme-text-main dark:text-theme-text-dark-muted/80 dark:hover:text-gray-200 border border-slate-200 dark:border-slate-700/50'}`}
-        >
-          Günlük Satış
-        </button>
-        <button
-          onClick={() => setActiveTab('monthly')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${activeTab === 'monthly' ? 'bg-theme-accent text-white shadow-md' : 'bg-theme-card-light dark:bg-theme-card-dark text-theme-text-main/80 dark:text-theme-text-dark-main hover:text-theme-text-main dark:text-theme-text-dark-muted/80 dark:hover:text-gray-200 border border-slate-200 dark:border-slate-700/50'}`}
-        >
-          Satış Analizi
-        </button>
-        <button
-          onClick={() => setActiveTab('regional')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${activeTab === 'regional' ? 'bg-theme-accent text-white shadow-md' : 'bg-theme-card-light dark:bg-theme-card-dark text-theme-text-main/80 dark:text-theme-text-dark-main hover:text-theme-text-main dark:text-theme-text-dark-muted/80 dark:hover:text-gray-200 border border-slate-200 dark:border-slate-700/50'}`}
-        >
-          Sayfa 3
-        </button>
+      <div className="flex justify-center mb-6">
+        <div className="relative inline-flex bg-theme-bg-light/80 dark:bg-black/20 p-1 rounded-full border border-slate-200/50 dark:border-white/5 shadow-sm">
+          {/* Animated Sliding Pill */}
+          <div
+            className="absolute top-1 bottom-1 w-[100px] sm:w-[120px] bg-theme-card-light dark:bg-theme-secondary rounded-full shadow-md transition-transform duration-300 ease-in-out"
+            style={{
+              transform: `translateX(${activeTab === 'daily' ? '0' : activeTab === 'monthly' ? '100%' : '200%'})`
+            }}
+          />
+          <button
+            onClick={() => setActiveTab('daily')}
+            className={`relative z-10 w-[100px] sm:w-[120px] py-2 rounded-full text-[11px] font-bold transition-colors duration-300 ${activeTab === 'daily'
+              ? 'text-theme-text-main dark:text-theme-text-dark-main'
+              : 'text-theme-text-muted/80 hover:text-theme-primary dark:hover:text-theme-text-muted'
+              }`}
+          >
+            Günlük Satış
+          </button>
+          <button
+            onClick={() => setActiveTab('monthly')}
+            className={`relative z-10 w-[100px] sm:w-[120px] py-2 rounded-full text-[11px] font-bold transition-colors duration-300 ${activeTab === 'monthly'
+              ? 'text-theme-text-main dark:text-theme-text-dark-main'
+              : 'text-theme-text-muted/80 hover:text-theme-primary dark:hover:text-theme-text-muted'
+              }`}
+          >
+            Satış Analizi
+          </button>
+          <button
+            onClick={() => setActiveTab('regional')}
+            className={`relative z-10 w-[100px] sm:w-[120px] py-2 rounded-full text-[11px] font-bold transition-colors duration-300 ${activeTab === 'regional'
+              ? 'text-theme-text-main dark:text-theme-text-dark-main'
+              : 'text-theme-text-muted/80 hover:text-theme-primary dark:hover:text-theme-text-muted'
+              }`}
+          >
+            Bölgesel Analiz
+          </button>
+        </div>
       </div>
 
       {renderTabContent()}

@@ -301,7 +301,7 @@ export const Header = ({ darkMode, toggleDarkMode, currentPage, onNavigate, sele
         <>
           <ToggleTlTon />
           <ToggleYtdMtd />
-          <div className="w-px h-6 bg-theme-bg-light dark:bg-theme-card-light/10 mx-1"></div>
+          <div className="w-px h-6 bg-theme-secondary/30 dark:bg-white/10 mx-1"></div>
           <HeaderSelect label="Dönem" value="2024 - Q3" />
           <HeaderSelect label="Kanal" value="Tümü" />
           <HeaderSelect label="Fabrika" value="Tümü" />
@@ -316,7 +316,7 @@ export const Header = ({ darkMode, toggleDarkMode, currentPage, onNavigate, sele
         <>
           <ToggleTlTon />
           <ToggleYtdMtd />
-          <div className="w-px h-6 bg-theme-bg-light dark:bg-theme-card-light/10 mx-1"></div>
+          <div className="w-px h-6 bg-theme-secondary/30 dark:bg-white/10 mx-1"></div>
           <HeaderSelect label="Dönem" value="2024 - Q3" />
           <HeaderSelect label="Kanal" value="Tümü" />
           <HierarchicalFilter />
@@ -330,7 +330,7 @@ export const Header = ({ darkMode, toggleDarkMode, currentPage, onNavigate, sele
         <>
           <ToggleTlTon />
           <ToggleYtdMtd />
-          <div className="w-px h-6 bg-theme-bg-light dark:bg-theme-card-light/10 mx-1"></div>
+          <div className="w-px h-6 bg-theme-secondary/30 dark:bg-white/10 mx-1"></div>
           <HeaderSelect label="Şirket" value="Pınar Süt" />
           <HeaderMultiSelect
             label="Marka"
@@ -378,7 +378,7 @@ export const Header = ({ darkMode, toggleDarkMode, currentPage, onNavigate, sele
           <button onClick={toggleDarkMode} className="p-2 hover:bg-theme-bg-light/80 dark:hover:bg-theme-card-light/10 rounded-xl transition-all duration-300 text-theme-text-main/80 dark:text-amber-400 hover:rotate-12">
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          <div className="hidden sm:block opacity-90 hover:opacity-100 transition-opacity">
+          <div className="hidden sm:block opacity-100 hover:opacity-90 transition-opacity">
             <PinarLogo collapsed={false} />
           </div>
           <div className="sm:hidden w-8 h-8 flex items-center justify-center bg-theme-secondary rounded-lg text-white font-bold text-xs shadow-md">

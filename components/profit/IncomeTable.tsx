@@ -50,7 +50,7 @@ export const IncomeStatementTable = () => {
         </div>
 
         {/* Column Headers */}
-        <div className={`grid grid-cols-12 gap-2 px-4 py-3 font-black text-theme-text-muted dark:text-theme-text-muted/80 tracking-wider ${isModal ? 'text-[12px]' : 'text-[10px]'}`}>
+        <div className={`grid grid-cols-12 gap-2 px-4 py-3 font-black text-theme-text-muted dark:text-theme-dark-muted tracking-wider ${isModal ? 'text-[12px]' : 'text-[10px]'}`}>
           <div className="col-span-5 text-left">Finansal Kalem</div>
           <div className="col-span-2 text-right">Cari Dönem</div>
           <div className="col-span-1 text-right">%</div>
@@ -73,8 +73,8 @@ export const IncomeStatementTable = () => {
                 : 'text-theme-text-main dark:text-theme-text-dark-main'}
             `}
           >
-            <div className={`col-span-5 flex items-center ${row.isHeader ? 'justify-start' : 'justify-end'}`}>
-              <span className={`${!row.isHeader ? 'text-right' : ''}`}>{row.name}</span>
+            <div className="col-span-5 flex items-center justify-start">
+              <span className={`text-left ${row.level === 1 ? 'pl-4' : row.level === 2 ? 'pl-8' : ''}`}>{row.name}</span>
             </div>
 
             <div className={`col-span-2 text-right font-semibold ${row.current < 0 ? 'text-theme-text-muted' : ''}`}>

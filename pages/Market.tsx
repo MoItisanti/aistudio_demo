@@ -51,13 +51,13 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex }: any)
       <div className="bg-theme-card-light dark:bg-theme-card-dark p-3 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700/50 min-w-[150px] z-50">
         <div className="flex items-center gap-2 mb-2 border-b border-slate-200 dark:border-slate-700/50 pb-2">
           <div className="w-3 h-3 rounded-full" style={{ backgroundColor: brandData.color }}></div>
-          <span className="text-[12px] font-bold text-theme-text-main dark:text-gray-200">{label}</span>
+          <span className="text-[12px] font-bold text-theme-text-main dark:text-theme-text-dark-main">{label}</span>
         </div>
         <div className="space-y-1.5">
           {months.map((m: string, idx: number) => (
             <div key={m} className="flex justify-between items-center text-[11px]">
-              <span className="text-theme-secondary dark:text-theme-text-muted/80 font-medium">{m}</span>
-              <span className="font-bold text-theme-text-main dark:text-gray-200">
+              <span className="text-theme-text-muted dark:text-theme-text-dark-muted font-medium">{m}</span>
+              <span className="font-bold text-theme-text-main dark:text-theme-text-dark-main">
                 {brandData[m]?.toLocaleString('tr-TR')}
               </span>
             </div>
@@ -68,77 +68,81 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex }: any)
   };
 
   const renderLineChart = (isModal: boolean = false) => (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart
-        data={chart.data}
-        margin={isModal
-          ? { top: 40, right: 30, left: 20, bottom: 20 }
-          : { top: 25, right: 20, left: -25, bottom: 0 }
-        }
-      >
-        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" strokeOpacity={0.8} />
-        <XAxis
-          dataKey="name"
-          axisLine={{ stroke: '#94a3b8', strokeWidth: 1 }}
-          tickLine={false}
-          tick={{ fill: '#64748b', fontSize: isModal ? 12 : 10, fontWeight: 600 }}
-          interval={isModal ? 0 : 1}
-        />
-        <YAxis
-          axisLine={{ stroke: '#94a3b8', strokeWidth: 1 }}
-          tickLine={false}
-          tick={{ fill: '#64748b', fontSize: isModal ? 12 : 9 }}
-        />
-        <Tooltip content={<CustomTooltip type="line" />} />
-        <Legend
-          iconType="circle"
-          iconSize={isModal ? 10 : 8}
-          verticalAlign="bottom"
-          align="center"
-          wrapperStyle={{
-            fontSize: isModal ? '12px' : '10px',
-            width: '100%',
-            left: 0,
-            bottom: 0,
-            padding: isModal ? '16px 0' : '12px 0',
-            textAlign: 'center'
-          }}
-        />
+    <div className="w-full h-full overflow-x-auto custom-scrollbar">
+      <div className="min-w-[600px] md:min-w-0 h-full">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart
+            data={chart.data}
+            margin={isModal
+              ? { top: 40, right: 30, left: 20, bottom: 20 }
+              : { top: 25, right: 20, left: -25, bottom: 0 }
+            }
+          >
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" strokeOpacity={0.8} />
+            <XAxis
+              dataKey="name"
+              axisLine={{ stroke: '#94a3b8', strokeWidth: 1 }}
+              tickLine={false}
+              tick={{ fill: '#64748b', fontSize: isModal ? 12 : 10, fontWeight: 600 }}
+              interval={isModal ? 0 : 1}
+            />
+            <YAxis
+              axisLine={{ stroke: '#94a3b8', strokeWidth: 1 }}
+              tickLine={false}
+              tick={{ fill: '#64748b', fontSize: isModal ? 12 : 9 }}
+            />
+            <Tooltip content={<CustomTooltip type="line" />} />
+            <Legend
+              iconType="circle"
+              iconSize={isModal ? 10 : 8}
+              verticalAlign="bottom"
+              align="center"
+              wrapperStyle={{
+                fontSize: isModal ? '12px' : '10px',
+                width: '100%',
+                left: 0,
+                bottom: 0,
+                padding: isModal ? '16px 0' : '12px 0',
+                textAlign: 'center'
+              }}
+            />
 
-        {MARKET_PALETTE.slice(0, 5).map((color, idx) => {
-          const brandName = idx === 0 ? "Pınar Süt" : `Rakip ${idx}`;
-          const dataKey = `comp${idx + 1}`;
+            {MARKET_PALETTE.slice(0, 5).map((color, idx) => {
+              const brandName = idx === 0 ? "Pınar Süt" : `Rakip ${idx}`;
+              const dataKey = `comp${idx + 1}`;
 
-          if (!selectedBrands.includes(brandName)) return null;
+              if (!selectedBrands.includes(brandName)) return null;
 
-          return (
-            <Line
-              key={idx}
-              type="monotone"
-              dataKey={dataKey}
-              name={brandName}
-              stroke={color}
-              strokeWidth={3}
-              dot={{ r: 4, fill: color, strokeWidth: 2, stroke: '#fff' }}
-              activeDot={{ r: 6 }}
-              animationDuration={1000}
-            >
-              <LabelList
-                dataKey={dataKey}
-                position="top"
-                offset={12}
-                style={{
-                  fill: color,
-                  fontSize: isModal ? '11px' : '9px',
-                  fontWeight: 'bold',
-                  opacity: 0.9
-                }}
-              />
-            </Line>
-          );
-        })}
-      </LineChart>
-    </ResponsiveContainer>
+              return (
+                <Line
+                  key={idx}
+                  type="monotone"
+                  dataKey={dataKey}
+                  name={brandName}
+                  stroke={color}
+                  strokeWidth={3}
+                  dot={{ r: 4, fill: color, strokeWidth: 2, stroke: '#fff' }}
+                  activeDot={{ r: 6 }}
+                  animationDuration={1000}
+                >
+                  <LabelList
+                    dataKey={dataKey}
+                    position="top"
+                    offset={12}
+                    style={{
+                      fill: color,
+                      fontSize: isModal ? '11px' : '9px',
+                      fontWeight: 'bold',
+                      opacity: 0.9
+                    }}
+                  />
+                </Line>
+              );
+            })}
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
   );
 
   const renderBarChart = () => (
@@ -285,74 +289,78 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
   const [expandedState, setExpandedState] = useState<{ index: number, isBar: boolean } | null>(null);
 
   const renderModalLineChart = (chart: any) => (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart
-        data={chart.data}
-        margin={{ top: 40, right: 30, left: 20, bottom: 20 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" strokeOpacity={0.8} />
-        <XAxis
-          dataKey="name"
-          axisLine={{ stroke: '#94a3b8', strokeWidth: 1 }}
-          tickLine={false}
-          tick={{ fill: '#64748b', fontSize: 12, fontWeight: 600 }}
-          interval={0}
-        />
-        <YAxis
-          axisLine={{ stroke: '#94a3b8', strokeWidth: 1 }}
-          tickLine={false}
-          tick={{ fill: '#64748b', fontSize: 12 }}
-        />
-        <Tooltip content={<CustomTooltip type="line" />} />
-        <Legend
-          iconType="circle"
-          iconSize={10}
-          verticalAlign="bottom"
-          align="center"
-          wrapperStyle={{
-            fontSize: '12px',
-            width: '100%',
-            left: 0,
-            bottom: 0,
-            padding: '16px 0',
-            textAlign: 'center'
-          }}
-        />
+    <div className="w-full h-full overflow-x-auto custom-scrollbar">
+      <div className="min-w-[800px] md:min-w-0 h-full">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart
+            data={chart.data}
+            margin={{ top: 40, right: 30, left: 20, bottom: 20 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" strokeOpacity={0.8} />
+            <XAxis
+              dataKey="name"
+              axisLine={{ stroke: '#94a3b8', strokeWidth: 1 }}
+              tickLine={false}
+              tick={{ fill: '#64748b', fontSize: 12, fontWeight: 600 }}
+              interval={0}
+            />
+            <YAxis
+              axisLine={{ stroke: '#94a3b8', strokeWidth: 1 }}
+              tickLine={false}
+              tick={{ fill: '#64748b', fontSize: 12 }}
+            />
+            <Tooltip content={<CustomTooltip type="line" />} />
+            <Legend
+              iconType="circle"
+              iconSize={10}
+              verticalAlign="bottom"
+              align="center"
+              wrapperStyle={{
+                fontSize: '12px',
+                width: '100%',
+                left: 0,
+                bottom: 0,
+                padding: '16px 0',
+                textAlign: 'center'
+              }}
+            />
 
-        {CHART_PALETTE.slice(0, 5).map((color, idx) => {
-          const brandName = idx === 0 ? "Pınar Süt" : `Rakip ${idx}`;
-          const dataKey = `comp${idx + 1}`;
+            {CHART_PALETTE.slice(0, 5).map((color, idx) => {
+              const brandName = idx === 0 ? "Pınar Süt" : `Rakip ${idx}`;
+              const dataKey = `comp${idx + 1}`;
 
-          if (!selectedBrands.includes(brandName)) return null;
+              if (!selectedBrands.includes(brandName)) return null;
 
-          return (
-            <Line
-              key={idx}
-              type="monotone"
-              dataKey={dataKey}
-              name={brandName}
-              stroke={color}
-              strokeWidth={3}
-              dot={{ r: 4, fill: color, strokeWidth: 2, stroke: '#fff' }}
-              activeDot={{ r: 6 }}
-              animationDuration={1000}
-            >
-              <LabelList
-                dataKey={dataKey}
-                position="top"
-                offset={12}
-                style={{
-                  fill: color,
-                  fontSize: '11px',
-                  fontWeight: 'bold',
-                  opacity: 0.9
-                }}
-              />
-            </Line>
-          );
-        })}
-      </LineChart>
-    </ResponsiveContainer>
+              return (
+                <Line
+                  key={idx}
+                  type="monotone"
+                  dataKey={dataKey}
+                  name={brandName}
+                  stroke={color}
+                  strokeWidth={3}
+                  dot={{ r: 4, fill: color, strokeWidth: 2, stroke: '#fff' }}
+                  activeDot={{ r: 6 }}
+                  animationDuration={1000}
+                >
+                  <LabelList
+                    dataKey={dataKey}
+                    position="top"
+                    offset={12}
+                    style={{
+                      fill: color,
+                      fontSize: '11px',
+                      fontWeight: 'bold',
+                      opacity: 0.9
+                    }}
+                  />
+                </Line>
+              );
+            })}
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
   );
 
   const renderModalBarChart = (chart: any) => {
@@ -395,13 +403,13 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
         <div className="bg-theme-card-light dark:bg-theme-card-dark p-4 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700/50 min-w-[180px] z-50">
           <div className="flex items-center gap-2 mb-3 border-b border-slate-200 dark:border-slate-700/50 pb-3">
             <div className="w-4 h-4 rounded-full" style={{ backgroundColor: brandData.color }}></div>
-            <span className="text-[14px] font-bold text-theme-text-main dark:text-gray-200">{label}</span>
+            <span className="text-[14px] font-bold text-theme-text-main dark:text-theme-text-dark-main">{label}</span>
           </div>
           <div className="space-y-2">
             {months.map((m: string, idx: number) => (
               <div key={m} className="flex justify-between items-center text-[12px]">
-                <span className="text-theme-secondary dark:text-theme-text-muted/80 font-medium">{m}</span>
-                <span className="font-bold text-theme-text-main dark:text-gray-200">
+                <span className="text-theme-text-muted dark:text-theme-text-dark-muted font-medium">{m}</span>
+                <span className="font-bold text-theme-text-main dark:text-theme-text-dark-main">
                   {brandData[m]?.toLocaleString('tr-TR')}
                 </span>
               </div>
