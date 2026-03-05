@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import { Maximize2, X } from 'lucide-react';
-import { CardHeader } from '../Shared';
+import { CardHeader, TruncatedTooltip } from '../Shared';
 import { SALES_DETAIL_TABLE_DATA } from '../../data';
 
 export const SalesDetailTable = () => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const renderContent = (isModal = false) => (
-        <div className={`overflow-auto custom-scrollbar flex-1 ${isModal ? 'p-4' : ''}`}>
+        <div className="overflow-auto custom-scrollbar flex-1">
             {/* Fixed Width Container to enable scrolling */}
             <div className={`min-w-[1000px] text-[11px] ${isModal ? 'w-full' : ''}`}>
 
                 {/* Header */}
                 <div className="flex bg-[#f1f5f9] text-theme-text-muted dark:bg-theme-primary/90 dark:text-theme-text-muted border-b border-theme-secondary/30 dark:border-theme-secondary/60 font-bold tracking-wider shrink-0 select-none sticky top-0 z-30 shadow-sm h-12 items-center">
-                    <div className="w-64 p-3 sticky left-0 z-40 bg-[#f1f5f9] dark:bg-theme-primary/90 border-r border-theme-secondary/30 dark:border-theme-secondary/60 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] flex items-center h-full">Ana Ürün Grubu</div>
+                    <div className="w-32 md:w-48 p-0 sticky left-0 z-40 bg-theme-card-light dark:bg-theme-card-dark border-r border-theme-secondary/30 dark:border-theme-secondary/60 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] h-full">
+                        <div className="w-full h-full flex items-center px-3 bg-[#f1f5f9] dark:bg-theme-primary/90">
+                            Ana Ürün Grubu
+                        </div>
+                    </div>
                     <div className="flex-1 p-2 text-right h-full flex items-center justify-end px-3 border-r border-theme-secondary/30/60 dark:border-theme-secondary/60/60">Geçen Dönem</div>
                     <div className="flex-1 p-2 text-right h-full flex items-center justify-end px-3 border-r border-theme-secondary/30/60 dark:border-theme-secondary/60/60">Geçen Dönem BK</div>
                     <div className="flex-1 p-2 text-right h-full flex items-center justify-end px-3 border-r border-theme-secondary/30/60 dark:border-theme-secondary/60/60">Bütçe</div>
@@ -49,13 +53,12 @@ export const SalesDetailTable = () => {
                         const formatPct = (num: number) => `${num.toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`;
 
                         return (
-                            <div key={idx} className={`flex border-b border-theme-secondary/30 hover:brightness-95 transition-all items-center py-1.5 h-8 ${rowBg} ${isSpecial ? 'font-bold' : ''}`}>
+                            <div key={idx} className={`flex border-b border-theme-secondary/30 hover:brightness-95 transition-all items-center py-1.5 h-8 relative hover:z-30 ${rowBg} ${isSpecial ? 'font-bold' : ''}`}>
                                 {/* First Column: Sticky Name */}
-                                <div className={`w-64 p-2 px-3 truncate sticky left-0 z-20 border-r border-gray-400/30 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] flex items-center h-full ${rowBg}`}>
-                                    {/* Alignment Logic: Groups Left, Items Right */}
-                                    <span className={`w-full ${isSpecial ? 'text-left uppercase tracking-wide' : 'text-right pr-2'}`}>
-                                        {item.name}
-                                    </span>
+                                <div className={`w-32 md:w-48 p-0 sticky left-0 z-20 border-r border-gray-400/30 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] h-full bg-theme-card-light dark:bg-theme-card-dark overflow-visible`}>
+                                    <div className={`w-full h-full flex items-center px-2 md:px-3 ${rowBg}`}>
+                                        <TruncatedTooltip text={item.name} className={`w-full ${isSpecial ? 'text-left uppercase tracking-wide' : 'text-right pr-2'}`} />
+                                    </div>
                                 </div>
 
                                 <div className="flex-1 px-3 text-right border-r border-gray-400/20">{formatNum(item.lastPeriod)}</div>

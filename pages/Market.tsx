@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ResponsiveContainer, LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, LabelList, Cell } from 'recharts';
 import { Maximize2, X, RotateCcw, ArrowRightLeft } from 'lucide-react';
 import { CustomTooltip } from '../components/Shared';
@@ -287,6 +287,14 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex }: any)
 
 const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
   const [expandedState, setExpandedState] = useState<{ index: number, isBar: boolean } | null>(null);
+  const [isModalFlipped, setIsModalFlipped] = useState(false);
+
+  // Sync modal flip state when opened
+  useEffect(() => {
+    if (expandedState) {
+      setIsModalFlipped(expandedState.isBar);
+    }
+  }, [expandedState]);
 
   const renderModalLineChart = (chart: any) => (
     <div className="w-full h-full overflow-x-auto custom-scrollbar">
@@ -420,67 +428,71 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
     };
 
     return (
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={transformedData}
-          margin={{ top: 40, right: 30, left: 20, bottom: 20 }}
-          barGap={0}
-        >
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" strokeOpacity={0.8} />
-          <XAxis
-            dataKey="brand"
-            axisLine={{ stroke: '#94a3b8', strokeWidth: 1 }}
-            tickLine={false}
-            tick={{ fill: '#64748b', fontSize: 12, fontWeight: 600 }}
-          />
-          <YAxis
-            axisLine={{ stroke: '#94a3b8', strokeWidth: 1 }}
-            tickLine={false}
-            tick={{ fill: '#64748b', fontSize: 12 }}
-          />
-          <Tooltip cursor={{ fill: 'transparent' }} content={<CustomBarTooltip />} />
+      <div className="w-full h-full overflow-x-auto custom-scrollbar">
+        <div className="min-w-[800px] md:min-w-0 h-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={transformedData}
+              margin={{ top: 40, right: 30, left: 20, bottom: 20 }}
+              barGap={0}
+            >
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" strokeOpacity={0.8} />
+              <XAxis
+                dataKey="brand"
+                axisLine={{ stroke: '#94a3b8', strokeWidth: 1 }}
+                tickLine={false}
+                tick={{ fill: '#64748b', fontSize: 12, fontWeight: 600 }}
+              />
+              <YAxis
+                axisLine={{ stroke: '#94a3b8', strokeWidth: 1 }}
+                tickLine={false}
+                tick={{ fill: '#64748b', fontSize: 12 }}
+              />
+              <Tooltip cursor={{ fill: 'transparent' }} content={<CustomBarTooltip />} />
 
-          {months
-            .map((month: string, idx: number) => (
-              <Bar
-                key={month}
-                dataKey={month}
-                name={month}
-                radius={[4, 4, 0, 0]}
-                animationDuration={1000}
-              >
-                {transformedData.map((entry: any, index: number) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={entry.color}
-                    stroke="#ffffff"
-                    strokeWidth={1}
-                  />
+              {months
+                .map((month: string, idx: number) => (
+                  <Bar
+                    key={month}
+                    dataKey={month}
+                    name={month}
+                    radius={[4, 4, 0, 0]}
+                    animationDuration={1000}
+                  >
+                    {transformedData.map((entry: any, index: number) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={entry.color}
+                        stroke="#ffffff"
+                        strokeWidth={1}
+                      />
+                    ))}
+                    <LabelList
+                      dataKey={month}
+                      position="top"
+                      content={(props: any) => {
+                        const { x, y, width, value, index } = props;
+                        const brandColor = transformedData[index]?.color || '#000';
+                        return (
+                          <text
+                            x={x + width / 2}
+                            y={y - 6}
+                            fill={brandColor}
+                            fontSize="11px"
+                            fontWeight="bold"
+                            textAnchor="middle"
+                          >
+                            {value}
+                          </text>
+                        );
+                      }}
+                    />
+                  </Bar>
                 ))}
-                <LabelList
-                  dataKey={month}
-                  position="top"
-                  content={(props: any) => {
-                    const { x, y, width, value, index } = props;
-                    const brandColor = transformedData[index]?.color || '#000';
-                    return (
-                      <text
-                        x={x + width / 2}
-                        y={y - 6}
-                        fill={brandColor}
-                        fontSize="11px"
-                        fontWeight="bold"
-                        textAnchor="middle"
-                      >
-                        {value}
-                      </text>
-                    );
-                  }}
-                />
-              </Bar>
-            ))}
-        </BarChart>
-      </ResponsiveContainer>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     );
   };
 
@@ -498,29 +510,71 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
         ))}
       </div>
 
-      {/* Fullscreen Modal */}
+      {/* Fullscreen Modal with Flip Logic */}
       {expandedState !== null && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 lg:p-10 bg-black/70 backdrop-blur-md animate-in fade-in zoom-in-95 duration-300">
-          <div className="bg-theme-card-light dark:bg-theme-card-dark w-full h-full rounded-2xl shadow-2xl flex flex-col overflow-hidden relative">
-            {/* Header Resized for Mobile/Tablet */}
-            <div className="bg-gradient-to-r from-[#012A36] to-[#22577a] px-4 py-2.5 md:px-6 md:py-4 flex justify-between items-center shrink-0">
-              <h2 className="text-xs md:text-base font-bold text-white uppercase tracking-widest">{MARKET_CHARTS[expandedState.index].title} - Detaylı Analiz</h2>
-              <button
-                onClick={() => setExpandedState(null)}
-                className="p-1.5 md:p-2 bg-theme-card-light/20 hover:bg-theme-card-light/30 rounded-full text-white transition-colors"
-              >
-                <X size={20} className="md:w-6 md:h-6" />
-              </button>
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 lg:p-10 bg-black/70 backdrop-blur-md animate-in fade-in zoom-in-95 duration-300 perspective-1000">
+          <div className={`relative w-full h-full md:max-w-7xl mx-auto transition-transform duration-700 transform-style-3d ${isModalFlipped ? 'rotate-y-180' : ''}`}>
+
+            {/* --- FRONT FACE (LINE CHART) --- */}
+            <div className={`absolute inset-0 bg-theme-card-light dark:bg-theme-card-dark w-full h-full rounded-2xl shadow-2xl flex flex-col overflow-hidden backface-hidden ${isModalFlipped ? 'pointer-events-none' : ''}`}>
+              <div className="px-4 md:px-6 py-3.5 md:py-4 border-b border-slate-200 dark:border-slate-700/50 flex justify-between items-center bg-theme-card-light dark:bg-theme-card-dark shrink-0">
+                <h2 className="text-sm md:text-base font-bold text-theme-text-main dark:text-theme-text-dark-main uppercase tracking-widest">{MARKET_CHARTS[expandedState.index].title} - Detaylı Analiz</h2>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setIsModalFlipped(true)}
+                    className="p-1.5 md:p-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg shadow-sm text-theme-main/60 dark:text-theme-main/60 border border-slate-200 dark:border-slate-700/50 flex items-center gap-2 transition-colors"
+                    title="Sütun Grafiğine Geç"
+                  >
+                    <ArrowRightLeft size={16} className="md:w-5 md:h-5" />
+                  </button>
+                  <button
+                    onClick={() => setExpandedState(null)}
+                    className="p-1.5 md:p-2 bg-slate-100 dark:bg-slate-800 hover:bg-theme-danger dark:hover:bg-theme-danger rounded-lg shadow-sm text-theme-main/60 dark:text-theme-main/60 border border-slate-200 dark:border-slate-700/50 flex items-center gap-2 transition-colors"
+                  >
+                    <X size={20} className="md:w-5 md:h-5" />
+                  </button>
+                </div>
+              </div>
+              <div className="flex-1 p-2 md:p-6 min-h-0">
+                {renderModalLineChart(MARKET_CHARTS[expandedState.index])}
+              </div>
             </div>
-            <div className="flex-1 p-6">
-              {expandedState.isBar
-                ? renderModalBarChart(MARKET_CHARTS[expandedState.index])
-                : renderModalLineChart(MARKET_CHARTS[expandedState.index])
-              }
+
+            {/* --- BACK FACE (BAR CHART) --- */}
+            <div className={`absolute inset-0 bg-theme-card-light dark:bg-theme-card-dark w-full h-full rounded-2xl shadow-2xl flex flex-col overflow-hidden backface-hidden rotate-y-180 ${!isModalFlipped ? 'pointer-events-none' : ''}`}>
+              <div className="px-4 md:px-6 py-3.5 md:py-4 border-b border-slate-200 dark:border-slate-700/50 flex justify-between items-center bg-theme-card-light dark:bg-theme-card-dark shrink-0">
+                <h2 className="text-sm md:text-base font-bold text-theme-text-main dark:text-theme-text-dark-main uppercase tracking-widest">{MARKET_CHARTS[expandedState.index].title} - Sütun Analizi</h2>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setIsModalFlipped(false)}
+                    className="p-1.5 md:p-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg shadow-sm text-theme-main/60 dark:text-theme-main/60 border border-slate-200 dark:border-slate-700/50 flex items-center gap-2 transition-colors"
+                    title="Çizgi Grafiğine Geç"
+                  >
+                    <RotateCcw size={16} className="md:w-5 md:h-5" />
+                  </button>
+                  <button
+                    onClick={() => setExpandedState(null)}
+                    className="p-1.5 md:p-2 bg-slate-100 dark:bg-slate-800 hover:bg-theme-danger dark:hover:bg-theme-danger rounded-lg shadow-sm text-theme-main/60 dark:text-theme-main/60 border border-slate-200 dark:border-slate-700/50 flex items-center gap-2 transition-colors"
+                  >
+                    <X size={20} className="md:w-5 md:h-5" />
+                  </button>
+                </div>
+              </div>
+              <div className="flex-1 p-2 md:p-6 min-h-0">
+                {renderModalBarChart(MARKET_CHARTS[expandedState.index])}
+              </div>
             </div>
+
           </div>
         </div>
       )}
+
+      <style>{`
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        .backface-hidden { backface-visibility: hidden; }
+      `}</style>
     </div>
   );
 };

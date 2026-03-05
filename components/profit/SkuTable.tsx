@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { ArrowUpDown, ArrowUp, ArrowDown, Maximize2, X } from 'lucide-react';
-import { CardHeader } from '../Shared';
+import { CardHeader, TruncatedTooltip } from '../Shared';
 
 type SortDirection = 'asc' | 'desc';
 interface SortConfig {
@@ -47,12 +47,12 @@ export const SkuTable = ({ title, data, valueLabel }: { title: string, data: any
   }
 
   const renderContent = (isModal = false) => (
-    <div className={`overflow-x-auto custom-scrollbar flex-1 ${isModal ? 'p-4' : ''}`}>
+    <div className="overflow-auto custom-scrollbar flex-1">
       <div className={`w-full h-full flex flex-col ${isModal ? 'min-w-[550px]' : ''}`}>
         {/* Header */}
-        <div className={`flex bg-theme-bg-light/50 dark:bg-theme-bg-dark border-b border-slate-200 dark:border-slate-700/50 font-bold text-theme-text-muted dark:text-theme-text-dark-muted tracking-wide shrink-0 select-none ${isModal ? 'text-[12px]' : 'text-[10px] 2xl:text-[10px]'}`}>
+        <div className={`flex bg-theme-bg-light/50 dark:bg-theme-bg-dark border-b border-slate-200 dark:border-slate-700/50 font-bold text-theme-text-muted dark:text-theme-text-dark-muted tracking-wide shrink-0 select-none sticky top-0 z-30 shadow-sm ${isModal ? 'text-[12px]' : 'text-[10px] 2xl:text-[10px]'}`}>
           <button
-            className={`${isModal ? 'w-80' : 'w-24 2xl:w-32'} p-1.5 sticky left-0 z-20 bg-theme-card-light/50 dark:bg-theme-card-dark border-r border-slate-200 dark:border-slate-700/50 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] flex items-center hover:text-theme-text-main dark:hover:text-white transition-colors`}
+            className={`${isModal ? 'w-40 md:w-64' : 'w-24 2xl:w-32'} p-1.5 sticky left-0 z-40 bg-theme-card-light dark:bg-theme-card-dark border-r border-slate-200 dark:border-slate-700/50 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] flex items-center hover:text-theme-text-main dark:hover:text-white transition-colors`}
             onClick={() => handleSort('name')}
           >
             Ürün Tanımı <SortIcon columnKey="name" />
@@ -69,10 +69,14 @@ export const SkuTable = ({ title, data, valueLabel }: { title: string, data: any
           </button>
         </div>
 
-        <div className="flex-1 overflow-hidden">
+        <div className="flex-1">
           {sortedData.map((item) => (
-            <div key={item.id} className={`flex border-b border-slate-200 dark:border-slate-700/50 hover:bg-theme-bg-light dark:hover:bg-slate-200/10 transition-colors items-center py-1 h-8 ${isModal ? 'text-[12px]' : 'text-[10px] 2xl:text-[10px]'}`}>
-              <div className={`${isModal ? 'w-80' : 'w-24 2xl:w-32'} px-1.5 text-theme-text-main dark:text-theme-text-dark-main truncate sticky left-0 z-20 bg-theme-card-light dark:bg-theme-card-dark border-r border-slate-200 dark:border-slate-700/50 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] flex items-center font-bold h-full`} title={item.name}>{item.name.replace('Pınar ', '')}</div>
+            <div key={item.id} className={`flex border-b border-slate-200 dark:border-slate-700/50 hover:bg-theme-bg-light dark:hover:bg-slate-200/10 transition-colors items-center py-1 h-8 relative hover:z-30 ${isModal ? 'text-[12px]' : 'text-[10px] 2xl:text-[10px]'}`}>
+              <div className={`${isModal ? 'w-40 md:w-64' : 'w-24 2xl:w-32'} sticky left-0 z-20 bg-theme-card-light dark:bg-theme-card-dark border-r border-slate-200 dark:border-slate-700/50 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] h-full overflow-visible`}>
+                <div className="w-full h-full flex items-center px-1.5 font-bold text-theme-text-main dark:text-theme-text-dark-main">
+                  <TruncatedTooltip text={item.name.replace('Pınar ', '')} />
+                </div>
+              </div>
 
               <div className="flex-1 px-1.5 text-right font-semibold text-theme-text-main dark:text-theme-text-dark-main">{formatNum(item.current)}</div>
               <div className="flex-1 px-1.5 text-right text-theme-text-muted">{item.share}%</div>
@@ -89,7 +93,7 @@ export const SkuTable = ({ title, data, valueLabel }: { title: string, data: any
           ))}
         </div>
       </div>
-    </div>
+    </div >
   );
 
   return (

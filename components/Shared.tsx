@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 export const CardHeader = ({ title, children }: { title: string, children?: React.ReactNode }) => (
   <div className="bg-gradient-to-r from-theme-primary from-60% to-theme-secondary px-4 py-2.5 flex justify-between items-center w-full relative z-10">
     <h3 className="text-[10px] font-bold text-white uppercase tracking-wider">{title}</h3>
@@ -62,6 +62,33 @@ export const AnimatedTurnoverBar = ({ value }: { value: number }) => {
       >
         <div className="w-1 h-1 bg-theme-secondary rounded-full"></div>
       </div>
+    </div>
+  );
+};
+
+// --- Tooltips ---
+export const TruncatedTooltip = ({ text, className, tooltipClassName }: { text: string, className?: string, tooltipClassName?: string }) => {
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+  const textRef = useRef<HTMLSpanElement>(null);
+
+  const handleMouseEnter = () => {
+    if (textRef.current && textRef.current.scrollWidth > textRef.current.clientWidth) {
+      setIsTooltipVisible(true);
+    }
+  };
+
+  return (
+    <div
+      className={`relative group/name flex items-center w-full h-full ${className || ''}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={() => setIsTooltipVisible(false)}
+    >
+      <span ref={textRef} className="truncate w-full block">{text}</span>
+      {isTooltipVisible && (
+        <div className={`absolute left-0 top-full mt-1 z-[100] bg-theme-card-light dark:bg-theme-card-dark text-theme-text-main dark:text-theme-text-dark-main text-[10px] px-2.5 py-1.5 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700/50 whitespace-nowrap pointer-events-none ${tooltipClassName || ''}`}>
+          {text}
+        </div>
+      )}
     </div>
   );
 };
