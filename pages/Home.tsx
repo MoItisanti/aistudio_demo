@@ -5,9 +5,28 @@ import { NetworkBackground } from '../components/NetworkBackground';
 
 const HomeContent = ({ onNavigate }: { onNavigate: (id: PageID) => void }) => {
   const [greeting, setGreeting] = useState('Günaydın!');
+  const [currentDate, setCurrentDate] = useState('');
+
   useEffect(() => {
-    const h = new Date().getHours();
-    setGreeting(h < 12 ? 'Günaydın!' : h < 18 ? 'Tünaydın!' : 'İyi Akşamlar!');
+    const updateTimeContext = () => {
+      const now = new Date();
+      const h = now.getHours();
+      setGreeting(h < 12 ? 'Günaydın!' : h < 18 ? 'Tünaydın!' : 'İyi Akşamlar!');
+
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      };
+      setCurrentDate(now.toLocaleDateString('tr-TR', options).replace(',', ''));
+    };
+
+    updateTimeContext();
+    const timer = setInterval(updateTimeContext, 60000); // Update every minute
+    return () => clearInterval(timer);
   }, []);
 
   return (
@@ -15,16 +34,32 @@ const HomeContent = ({ onNavigate }: { onNavigate: (id: PageID) => void }) => {
       <div className="relative h-64 lg:h-72 w-full bg-theme-primary rounded-[32px] overflow-hidden shadow-2xl group transition-all duration-500">
         <NetworkBackground />
 
-        {/* Dark gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#012A36]/90 via-[#012A36]/40 to-transparent pointer-events-none"></div>
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-[#012A36]/60 pointer-events-none"></div>
 
-        <div className="absolute inset-0 flex flex-col justify-center px-12 lg:px-20 z-10 pointer-events-none">
-          <div className="mb-2">
-            <span className="text-theme-accent font-bold tracking-[0.2em] text-sm md:text-base uppercase animate-in slide-in-from-left-4 duration-700 delay-100">{greeting}</span>
+        {/* Centered Main Content */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none -mt-4">
+          <span className="text-white/90 font-semibold tracking-[0.3em] text-lg md:text-xl uppercase animate-in fade-in slide-in-from-bottom-2 duration-700 delay-100 mb-5 drop-shadow-sm">
+            {greeting}
+          </span>
+
+          <div className="flex items-center gap-3 md:gap-4 animate-in fade-in slide-in-from-bottom-3 duration-700 delay-200">
+            <div className="flex flex-col md:flex-row md:items-center gap-x-3 gap-y-1">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-lg leading-none">Pınar Süt</h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-theme-accent tracking-normal drop-shadow-[0_2px_15px_rgba(234,179,8,0.2)] leading-none">Yönetim Paneli</h1>
+            </div>
           </div>
-          <div className="flex flex-col leading-tight">
-            <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight drop-shadow-lg animate-in slide-in-from-left-4 duration-700 delay-200">Pınar Süt</h1>
-            <h1 className="text-5xl md:text-7xl font-bold text-white/50 tracking-tight animate-in slide-in-from-left-4 duration-700 delay-300">Yönetim Paneli</h1>
+        </div>
+
+        {/* Elegant Horizontal Divider */}
+        <div className="absolute inset-x-0 bottom-[4.5rem] flex justify-center z-10 pointer-events-none animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+          <div className="w-1/2 md:w-1/3 max-w-sm h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-[0_1px_8px_rgba(255,255,255,0.2)] rounded-full"></div>
+        </div>
+
+        {/* Banner Footer (Date) */}
+        <div className="absolute inset-x-0 bottom-6 flex justify-center z-10 pointer-events-none animate-in fade-in slide-in-from-bottom-5 duration-700 delay-300">
+          <div className="flex items-center gap-2 text-white/90 bg-black/15 px-4 py-1.5 rounded-full backdrop-blur-md shadow-[inset_0_1px_rgba(255,255,255,0.1)] border border-white/10">
+            <span className="text-[9px] md:text-[10px] font-bold tracking-[0.15em] uppercase">{currentDate}</span>
           </div>
         </div>
       </div>

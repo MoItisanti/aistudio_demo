@@ -57,12 +57,12 @@ export const SkuTable = ({ title, data, valueLabel }: { title: string, data: any
           >
             Ürün Tanımı <SortIcon columnKey="name" />
           </button>
-          <div className="flex-1 p-1.5 text-right">Cari</div>
-          <div className="flex-1 p-1.5 text-right">%</div>
-          <div className="flex-1 p-1.5 text-right">Bütçe %</div>
-          <div className="flex-1 p-1.5 text-right">G.Yıl %</div>
+          <div className="flex-1 p-1 text-right whitespace-normal leading-tight flex items-center justify-end">Cari Dönem</div>
+          <div className="flex-1 p-1 text-right whitespace-normal leading-tight flex items-center justify-end">%</div>
+          <div className="flex-1 p-1 text-right whitespace-normal leading-tight flex items-center justify-end">Bütçe %</div>
+          <div className="flex-1 p-1 text-right whitespace-normal leading-tight flex items-center justify-end">Geçen Yıl %</div>
           <button
-            className="flex-[1.2] p-1.5 flex items-center justify-end hover:text-theme-text-main dark:hover:text-gray-200 transition-colors"
+            className="flex-[1.2] p-1 flex items-center justify-end hover:text-theme-text-main dark:hover:text-gray-200 transition-colors whitespace-normal leading-tight text-right"
             onClick={() => handleSort('value')}
           >
             {valueLabel} <SortIcon columnKey="value" />
@@ -78,8 +78,8 @@ export const SkuTable = ({ title, data, valueLabel }: { title: string, data: any
                 </div>
               </div>
 
-              <div className="flex-1 px-1.5 text-right font-semibold text-theme-text-main dark:text-theme-text-dark-main">{formatNum(item.current)}</div>
-              <div className="flex-1 px-1.5 text-right text-theme-text-muted">{item.share}%</div>
+              <div className="flex-1 px-1 text-right font-semibold text-theme-text-main dark:text-theme-text-dark-main whitespace-nowrap overflow-hidden text-clip">{formatNum(item.current)}</div>
+              <div className="flex-1 px-1 text-right text-theme-text-muted whitespace-nowrap overflow-hidden text-clip">{item.share}%</div>
 
               <div className={`flex-1 px-1.5 text-right font-medium ${item.budgetVar >= 0 ? 'text-theme-success dark:text-theme-success' : 'text-theme-danger'}`}>
                 {formatPercent(item.budgetVar)}

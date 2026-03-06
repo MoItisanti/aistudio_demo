@@ -38,10 +38,7 @@ export const NetworkBackground = () => {
       // Update and draw nodes
       ctx.fillStyle = nodeColor;
       nodes.forEach(node => {
-        // dampen velocity over time to look smooth
-        node.vx *= 0.999;
-        node.vy *= 0.999;
-
+        // Particles now move continuously without slowing down
         node.x += node.vx;
         node.y += node.vy;
 

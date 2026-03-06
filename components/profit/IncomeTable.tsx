@@ -11,6 +11,21 @@ export const IncomeStatementTable = () => {
   const [hierarchyFilter, setHierarchyFilter] = useState('Seviye 1');
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
+
+  const toggleRow = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    setExpandedRows(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  // Pre-process rows for hierarchy
+  let currentParentId: string | null = null;
+  const processedRows = INCOME_STATEMENT_DATA.map(row => {
+    if (row.level === 1) currentParentId = row.id;
+    return { ...row, parentId: row.level === 2 ? currentParentId : null };
+  });
+
+  const hasChildren = (id: string) => processedRows.some(r => r.parentId === id);
 
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(num);
@@ -50,47 +65,66 @@ export const IncomeStatementTable = () => {
         </div>
 
         {/* Column Headers */}
-        <div className={`grid grid-cols-12 gap-1 px-4 py-3 font-black text-theme-text-muted dark:text-theme-dark-muted tracking-wider ${isModal ? 'text-[12px]' : 'text-[10px]'}`}>
-          <div className="col-span-4 text-left">Finansal Kalem</div>
-          <div className="col-span-2 text-right">Cari Dönem</div>
-          <div className="col-span-2 text-right">%</div>
-          <div className="col-span-2 text-right">Bütçe %</div>
-          <div className="col-span-2 text-right">Geçen Yıl %</div>
+        <div className={`flex gap-1 px-4 py-2 font-black text-theme-text-muted dark:text-theme-dark-muted tracking-wide items-center ${isModal ? 'text-[12px]' : 'text-[10px]'}`}>
+          <div className="flex-[1.5] text-left whitespace-normal leading-tight flex items-center pl-5">Finansal Kalem</div>
+          <div className="flex-1 text-right whitespace-normal leading-tight flex items-center justify-end">Cari Dönem</div>
+          <div className="w-8 md:w-12 text-right whitespace-normal leading-tight flex items-center justify-end">%</div>
+          <div className="w-10 md:w-14 text-right whitespace-normal leading-tight flex items-center justify-end">Bütçe %</div>
+          <div className="w-10 md:w-14 text-right whitespace-normal leading-tight flex items-center justify-end">Geçen Yıl %</div>
         </div>
       </div>
 
       {/* Scrollable Body */}
-      <div className="flex-1 overflow-y-auto custom-scrollbar bg-theme-card-light dark:bg-theme-card-dark">
-        {INCOME_STATEMENT_DATA.map((row) => (
-          <div
-            key={row.id}
-            onClick={() => setSelectedRow(row)}
-            className={`
-              grid grid-cols-12 gap-1 px-4 py-1.5 h-8 items-center border-b border-slate-200 dark:border-slate-700/50 hover:bg-theme-bg-light dark:hover:bg-slate-200/10 transition-colors cursor-pointer group relative hover:z-30
-              ${isModal ? 'text-[12px]' : 'text-[10px]'}
-              ${row.isHeader
-                ? 'bg-slate-200/30 dark:bg-theme-secondary/30 font-bold text-theme-text-main dark:text-theme-text-dark-main'
-                : 'text-theme-text-main dark:text-theme-text-dark-main'}
-            `}
-          >
-            <div className="col-span-4 flex items-center justify-start">
-              <TruncatedTooltip text={row.name} className={`text-left ${row.level === 1 ? 'pl-4' : row.level === 2 ? 'pl-8' : ''}`} />
-            </div>
+      <div className="flex-1 overflow-y-auto custom-scrollbar bg-theme-card-light dark:bg-theme-card-dark pb-2">
+        {processedRows.map((row) => {
+          if (row.level === 2 && row.parentId && !expandedRows[row.parentId]) return null;
 
-            <div className={`col-span-2 text-right font-semibold ${row.current < 0 ? 'text-theme-text-muted' : ''}`}>
-              {formatNumber(row.current)}
+          const isParent = hasChildren(row.id);
+          const isRowExpanded = expandedRows[row.id];
+
+          return (
+            <div
+              key={row.id}
+              onClick={() => setSelectedRow(row)}
+              className={`
+                flex gap-1 px-4 py-1.5 h-8 items-center border-b border-slate-200 dark:border-slate-700/50 hover:bg-theme-bg-light dark:hover:bg-slate-200/10 transition-colors cursor-pointer group relative hover:z-30
+                ${isModal ? 'text-[12px]' : 'text-[10px]'}
+                ${row.isHeader
+                  ? 'bg-slate-200/30 dark:bg-theme-secondary/30 font-bold text-theme-text-main dark:text-theme-text-dark-main'
+                  : 'text-theme-text-main dark:text-theme-text-dark-main'}
+              `}
+            >
+              <div className="flex-[1.5] flex items-center justify-start min-w-0">
+                {row.level > 0 && (
+                  <div className="w-[20px] shrink-0 flex items-center justify-center">
+                    {isParent && (
+                      <button
+                        onClick={(e) => toggleRow(e, row.id)}
+                        className="p-[2px] hover:bg-slate-300 dark:hover:bg-slate-600 rounded text-theme-text-muted dark:text-theme-text-dark-muted transition-colors"
+                      >
+                        <ChevronDown size={14} className={`transition-transform duration-200 ${!isRowExpanded ? '-rotate-90' : ''}`} />
+                      </button>
+                    )}
+                  </div>
+                )}
+                <TruncatedTooltip text={row.name} className="text-left flex-1" />
+              </div>
+
+              <div className={`flex-1 text-right font-semibold whitespace-nowrap overflow-hidden text-clip ${row.current < 0 ? 'text-theme-text-muted' : ''}`}>
+                {formatNumber(row.current)}
+              </div>
+              <div className="w-8 md:w-12 text-right text-theme-text-muted dark:text-theme-text-dark-muted whitespace-nowrap overflow-hidden text-clip">
+                {row.share !== 0 ? Math.abs(row.share).toFixed(1) : '-'}
+              </div>
+              <div className={`w-10 md:w-14 text-right font-medium whitespace-nowrap overflow-hidden text-clip ${row.budgetVar > 0 ? 'text-theme-success dark:text-theme-success' : row.budgetVar < 0 ? 'text-theme-danger' : 'text-theme-text-muted'}`}>
+                {formatPercent(row.budgetVar)}
+              </div>
+              <div className={`w-10 md:w-14 text-right font-medium whitespace-nowrap overflow-hidden text-clip ${row.yearVar > 0 ? 'text-theme-success dark:text-theme-success' : row.yearVar < 0 ? 'text-theme-danger' : 'text-theme-text-muted'}`}>
+                {formatPercent(row.yearVar)}
+              </div>
             </div>
-            <div className="col-span-2 text-right text-theme-text-muted dark:text-theme-text-dark-muted">
-              {row.share !== 0 ? Math.abs(row.share).toFixed(1) : '-'}
-            </div>
-            <div className={`col-span-2 text-right font-medium ${row.budgetVar > 0 ? 'text-theme-success dark:text-theme-success' : row.budgetVar < 0 ? 'text-theme-danger' : 'text-theme-text-muted'}`}>
-              {formatPercent(row.budgetVar)}
-            </div>
-            <div className={`col-span-2 text-right font-medium ${row.yearVar > 0 ? 'text-theme-success dark:text-theme-success' : row.yearVar < 0 ? 'text-theme-danger' : 'text-theme-text-muted'}`}>
-              {formatPercent(row.yearVar)}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </>
   );

@@ -8,8 +8,15 @@ interface MarketContentProps {
   selectedBrands: string[];
 }
 
-const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex }: any) => {
+const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCharts }: any) => {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [hasFlipped, setHasFlipped] = useState(false);
+
+  useEffect(() => {
+    if (isFlipped && !hasFlipped) {
+      setHasFlipped(true);
+    }
+  }, [isFlipped, hasFlipped]);
 
   // Get last 6 months of data for the bar chart
   const last6MonthsData = chart.data.slice(-6);
@@ -240,8 +247,10 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex }: any)
             </button>
           </div>
 
-          <div className="flex-1 w-full min-h-0 pb-2">
-            {renderLineChart()}
+          <div className="flex-1 w-full min-h-0 pb-2 px-2">
+            {showCharts ? renderLineChart() : (
+              <div className="w-full h-full animate-pulse bg-slate-100 dark:bg-slate-800/30 rounded-xl" />
+            )}
           </div>
         </div>
 
@@ -268,8 +277,10 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex }: any)
             </button>
           </div>
 
-          <div className="flex-1 w-full min-h-0 pb-2">
-            {renderBarChart()}
+          <div className="flex-1 w-full min-h-0 pb-2 px-2">
+            {hasFlipped && showCharts ? renderBarChart() : (
+              <div className="w-full h-full animate-pulse bg-slate-100 dark:bg-slate-800/30 rounded-xl" />
+            )}
           </div>
         </div>
 
@@ -288,6 +299,16 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex }: any)
 const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
   const [expandedState, setExpandedState] = useState<{ index: number, isBar: boolean } | null>(null);
   const [isModalFlipped, setIsModalFlipped] = useState(false);
+  const [showCharts, setShowCharts] = useState(false);
+
+  useEffect(() => {
+    // Unblock the main thread so CSS animations can start smoothly
+    // Wait for a short duration before rendering heavy SVG charts
+    const timer = setTimeout(() => {
+      setShowCharts(true);
+    }, 150);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Sync modal flip state when opened
   useEffect(() => {
@@ -506,6 +527,7 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
             index={index}
             selectedBrands={selectedBrands}
             setExpandedIndex={setExpandedState}
+            showCharts={showCharts}
           />
         ))}
       </div>

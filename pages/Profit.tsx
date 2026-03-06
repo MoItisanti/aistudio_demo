@@ -67,7 +67,7 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
         />
 
         <FlipKpiCard
-          title="İadeler"
+          title="İade"
           value={iadeData.value}
           chartData={PROFIT_KPI_TRENDS}
           budgetPct={iadeData.budgetPct}
