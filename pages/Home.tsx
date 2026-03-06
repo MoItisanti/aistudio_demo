@@ -39,15 +39,13 @@ const HomeContent = ({ onNavigate }: { onNavigate: (id: PageID) => void }) => {
 
         {/* Centered Main Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none -mt-4">
-          <span className="text-white/90 font-semibold tracking-[0.3em] text-lg md:text-xl uppercase animate-in fade-in slide-in-from-bottom-2 duration-700 delay-100 mb-5 drop-shadow-sm">
+          <span className="text-white/90 font-semibold tracking-[0.3em] text-[18px] md:text-[20px] uppercase animate-in fade-in slide-in-from-bottom-2 duration-700 delay-100 mb-5 drop-shadow-sm">
             {greeting}
           </span>
 
-          <div className="flex items-center gap-3 md:gap-4 animate-in fade-in slide-in-from-bottom-3 duration-700 delay-200">
-            <div className="flex flex-col md:flex-row md:items-center gap-x-3 gap-y-1">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-lg leading-none">Pınar Süt</h1>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-theme-accent tracking-normal drop-shadow-[0_2px_15px_rgba(234,179,8,0.2)] leading-none">Yönetim Paneli</h1>
-            </div>
+          <div className="flex flex-col items-center gap-y-1 md:gap-y-2 animate-in fade-in slide-in-from-bottom-3 duration-700 delay-200">
+            <h2 className="text-[30px] md:text-[42px] lg:text-[54px] font-bold text-white tracking-tight drop-shadow-lg leading-none">Pınar Süt</h2>
+            <h1 className="text-[38px] md:text-[50px] lg:text-[62px] font-black text-theme-accent tracking-normal drop-shadow-[0_2px_15px_rgba(234,179,8,0.2)] leading-none -mt-1">Yönetim Paneli</h1>
           </div>
         </div>
 
