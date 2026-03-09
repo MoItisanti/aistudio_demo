@@ -76,7 +76,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
 
   const renderLineChart = (isModal: boolean = false) => (
     <div className="w-full h-full overflow-x-auto custom-scrollbar">
-      <div className="min-w-[600px] md:min-w-0 h-full">
+      <div className="min-w-[600px] md:min-w-0 h-full min-h-[300px]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={chart.data}
@@ -154,7 +154,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
 
   const renderBarChart = () => (
     <div className="w-full h-full overflow-x-auto custom-scrollbar">
-      <div style={{ minWidth: '600px', height: '100%' }}>
+      <div className="min-w-[600px] md:min-w-0 h-full min-h-[300px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={transformedData}
@@ -299,16 +299,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
 const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
   const [expandedState, setExpandedState] = useState<{ index: number, isBar: boolean } | null>(null);
   const [isModalFlipped, setIsModalFlipped] = useState(false);
-  const [showCharts, setShowCharts] = useState(false);
-
-  useEffect(() => {
-    // Unblock the main thread so CSS animations can start smoothly
-    // Wait for a short duration before rendering heavy SVG charts
-    const timer = setTimeout(() => {
-      setShowCharts(true);
-    }, 150);
-    return () => clearTimeout(timer);
-  }, []);
+  const [showCharts, setShowCharts] = useState(true);
 
   // Sync modal flip state when opened
   useEffect(() => {
@@ -534,8 +525,8 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
 
       {/* Fullscreen Modal with Flip Logic */}
       {expandedState !== null && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 lg:p-10 bg-black/70 backdrop-blur-md animate-in fade-in zoom-in-95 duration-300 perspective-1000">
-          <div className={`relative w-full h-full md:max-w-7xl mx-auto transition-transform duration-700 transform-style-3d ${isModalFlipped ? 'rotate-y-180' : ''}`}>
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 lg:p-10 bg-black/70 backdrop-blur-md animate-in fade-in zoom-in-95 duration-300 perspective-1000 overflow-y-auto custom-scrollbar">
+          <div className={`relative w-full h-[75vh] md:h-auto md:aspect-video md:max-w-[90vw] lg:max-w-[85vw] xl:max-w-6xl 2xl:max-w-7xl mx-auto transition-transform duration-700 transform-style-3d ${isModalFlipped ? 'rotate-y-180' : ''}`}>
 
             {/* --- FRONT FACE (LINE CHART) --- */}
             <div className={`absolute inset-0 bg-theme-card-light dark:bg-theme-card-dark w-full h-full rounded-2xl shadow-2xl flex flex-col overflow-hidden backface-hidden ${isModalFlipped ? 'pointer-events-none' : ''}`}>

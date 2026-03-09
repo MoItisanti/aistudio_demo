@@ -104,10 +104,10 @@ const generateMarketData = () => MONTHS.map(m => ({
 export const MARKET_CHARTS = [
   { title: 'Pazar Payı', data: generateMarketData() },
   { title: 'Endeks', data: generateMarketData() },
-  { title: 'Sayısal Dağılım', data: generateMarketData() },
+  { title: 'Sayısal Dağıtım', data: generateMarketData() },
   { title: 'Ağırlıklı Dağıtım', data: generateMarketData() },
   { title: 'Tonaj', data: generateMarketData() },
-  { title: 'Arındırılmış Ortalama', data: generateMarketData() },
+  { title: 'Arındırılmış Ortalama Satış', data: generateMarketData() },
 ];
 
 export const BUDGET_DATA = [
