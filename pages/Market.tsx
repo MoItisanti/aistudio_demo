@@ -76,7 +76,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
 
   const renderLineChart = (isModal: boolean = false) => (
     <div className="w-full h-full overflow-x-auto custom-scrollbar">
-      <div className="min-w-[600px] md:min-w-0 h-full min-h-[300px]">
+      <div className="min-w-[600px] md:min-w-0 h-[280px]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={chart.data}
@@ -130,7 +130,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
                   strokeWidth={3}
                   dot={{ r: 4, fill: color, strokeWidth: 2, stroke: '#fff' }}
                   activeDot={{ r: 6 }}
-                  animationDuration={1000}
+                  isAnimationActive={false}
                 >
                   <LabelList
                     dataKey={dataKey}
@@ -154,7 +154,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
 
   const renderBarChart = () => (
     <div className="w-full h-full overflow-x-auto custom-scrollbar">
-      <div className="min-w-[600px] md:min-w-0 h-full min-h-[300px]">
+      <div className="min-w-[600px] md:min-w-0 h-[280px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={transformedData}
@@ -182,7 +182,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
                   dataKey={month}
                   name={month}
                   radius={[4, 4, 0, 0]}
-                  animationDuration={1000}
+                  isAnimationActive={false}
                 >
                   {transformedData.map((entry: any, index: number) => (
                     <Cell
@@ -221,7 +221,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
   );
 
   return (
-    <div className="group perspective-1000 w-full h-[380px] cursor-default hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+    <div className="group perspective-1000 w-full h-[400px] cursor-default hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
       <div className={`relative w-full h-full transition-transform duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
 
         {/* --- FRONT FACE --- */}
@@ -247,9 +247,9 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
             </button>
           </div>
 
-          <div className="flex-1 w-full min-h-0 pb-2 px-2">
+          <div className="flex-1 w-full h-full min-h-0 pb-2 px-2 relative">
             {showCharts ? renderLineChart() : (
-              <div className="w-full h-full animate-pulse bg-slate-100 dark:bg-slate-800/30 rounded-xl" />
+              <div className="absolute inset-2 animate-pulse bg-slate-100 dark:bg-slate-800/30 rounded-xl" />
             )}
           </div>
         </div>
@@ -277,9 +277,9 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
             </button>
           </div>
 
-          <div className="flex-1 w-full min-h-0 pb-2 px-2">
+          <div className="flex-1 w-full h-full min-h-0 pb-2 px-2 relative">
             {hasFlipped && showCharts ? renderBarChart() : (
-              <div className="w-full h-full animate-pulse bg-slate-100 dark:bg-slate-800/30 rounded-xl" />
+              <div className="absolute inset-2 animate-pulse bg-slate-100 dark:bg-slate-800/30 rounded-xl" />
             )}
           </div>
         </div>
@@ -299,7 +299,15 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
 const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
   const [expandedState, setExpandedState] = useState<{ index: number, isBar: boolean } | null>(null);
   const [isModalFlipped, setIsModalFlipped] = useState(false);
-  const [showCharts, setShowCharts] = useState(true);
+  const [showCharts, setShowCharts] = useState(false);
+
+  useEffect(() => {
+    // Mount charts slightly after page load to prevent thread blocking
+    const timer = setTimeout(() => {
+      setShowCharts(true);
+    }, 50);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Sync modal flip state when opened
   useEffect(() => {
@@ -361,7 +369,7 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
                   strokeWidth={3}
                   dot={{ r: 4, fill: color, strokeWidth: 2, stroke: '#fff' }}
                   activeDot={{ r: 6 }}
-                  animationDuration={1000}
+                  isAnimationActive={false}
                 >
                   <LabelList
                     dataKey={dataKey}
@@ -469,7 +477,7 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
                     dataKey={month}
                     name={month}
                     radius={[4, 4, 0, 0]}
-                    animationDuration={1000}
+                    isAnimationActive={false}
                   >
                     {transformedData.map((entry: any, index: number) => (
                       <Cell
@@ -548,7 +556,7 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
                   </button>
                 </div>
               </div>
-              <div className="flex-1 p-2 md:p-6 min-h-0">
+              <div className="flex-1 w-full h-full min-h-0 p-2 md:p-6 relative">
                 {renderModalLineChart(MARKET_CHARTS[expandedState.index])}
               </div>
             </div>
@@ -573,7 +581,7 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
                   </button>
                 </div>
               </div>
-              <div className="flex-1 p-2 md:p-6 min-h-0">
+              <div className="flex-1 w-full h-full min-h-0 p-2 md:p-6 relative">
                 {renderModalBarChart(MARKET_CHARTS[expandedState.index])}
               </div>
             </div>
