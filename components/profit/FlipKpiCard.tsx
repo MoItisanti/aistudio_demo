@@ -24,18 +24,24 @@ const CustomSparklineTooltip = ({ active, payload }: any) => {
 export const FlipKpiCard = ({ title, value, chartData, budgetPct, yoyPct, budgetValue, pyValue }: FlipKpiCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // Format Value: "X.X Milyon ₺" supports negative
-  const formatCurrency = (val: number | undefined) => {
-    if (val === undefined) return '-';
+  // Format Value: Returns amount and suffix separated
+  const formatCurrencyParts = (val: number | undefined) => {
+    if (val === undefined) return { amount: '-', suffix: '' };
     if (Math.abs(val) >= 1000000) {
-      return `${(val / 1000000).toFixed(1).replace('.', ',')} Milyon ₺`;
+      return {
+        amount: (val / 1000000).toFixed(1).replace('.', ','),
+        suffix: 'Milyon ₺'
+      };
     }
-    return `${val.toLocaleString('tr-TR')} ₺`;
+    return {
+      amount: val.toLocaleString('tr-TR'),
+      suffix: '₺'
+    };
   };
 
-  const formattedValue = formatCurrency(value);
-  const formattedBudget = formatCurrency(budgetValue);
-  const formattedPy = formatCurrency(pyValue);
+  const currentVal = formatCurrencyParts(value);
+  const budgetVal = formatCurrencyParts(budgetValue);
+  const pyVal = formatCurrencyParts(pyValue);
 
   return (
     <div className="group perspective-1000 w-full h-44 cursor-default hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 rounded-2xl">
@@ -48,7 +54,7 @@ export const FlipKpiCard = ({ title, value, chartData, budgetPct, yoyPct, budget
           className="absolute inset-0 w-full h-full bg-theme-card-light dark:bg-theme-card-dark rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700/50 flex flex-col backface-hidden overflow-hidden"
         >
           {/* Left Gradient Bar */}
-          <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-theme-secondary/50"></div>
+          <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-[#f28482]"></div>
 
           <div className="p-6 pl-6 flex flex-col h-full justify-between">
             {/* Header */}
@@ -63,9 +69,12 @@ export const FlipKpiCard = ({ title, value, chartData, budgetPct, yoyPct, budget
             </div>
 
             {/* Main Value */}
-            <div>
-              <span className="text-[36px] lg:text-[40px] xl:text-[44px] font-bold text-theme-text-main dark:text-theme-text-dark-main tracking-tight whitespace-nowrap">
-                {formattedValue}
+            <div className="flex items-baseline gap-1">
+              <span className="text-[36px] lg:text-[40px] xl:text-[44px] font-bold text-theme-text-main dark:text-theme-text-dark-main tracking-tight leading-none">
+                {currentVal.amount}
+              </span>
+              <span className="text-[16px] font-semibold text-theme-text-muted dark:text-theme-text-dark-muted tracking-wide">
+                {currentVal.suffix}
               </span>
             </div>
 
@@ -75,7 +84,7 @@ export const FlipKpiCard = ({ title, value, chartData, budgetPct, yoyPct, budget
                 {yoyPct >= 0 ? <TrendingUp size={14} className="mr-1" /> : <TrendingDown size={14} className="mr-1" />}
                 {yoyPct > 0 ? '+' : ''}{yoyPct}%
               </div>
-              <span className="text-xs text-theme-text-muted/80 dark:text-theme-text-dark-muted font-medium">vs. geçen yıl</span>
+              <span className="text-xs text-theme-text-muted/80 dark:text-theme-text-dark-muted font-medium italic">vs. geçen yıl</span>
             </div>
           </div>
         </div>
@@ -88,7 +97,7 @@ export const FlipKpiCard = ({ title, value, chartData, budgetPct, yoyPct, budget
           <div className="px-4 py-2 flex justify-between items-center border-b border-slate-200 dark:border-slate-700/50 shrink-0">
             <div className="flex items-center gap-2">
               <TrendingUp size={14} className="text-theme-secondary" />
-              <span className="text-xs font-bold uppercase text-theme-text-muted dark:text-theme-text-dark-main">12 Aylık Trend</span>
+              <span className="text-sm font-bold text-theme-text-muted dark:text-theme-text-dark-main">12 Aylık Trend</span>
             </div>
             <button
               onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}
@@ -124,16 +133,20 @@ export const FlipKpiCard = ({ title, value, chartData, budgetPct, yoyPct, budget
           {/* Stats Footer */}
           <div className="px-4 py-2 bg-theme-bg-light/50 dark:bg-theme-secondary/10 border-t border-slate-200 dark:border-slate-700/50 grid grid-cols-2 gap-0 shrink-0">
             <div className="flex flex-col items-center justify-center border-r border-slate-200 dark:border-slate-700/50">
-              <span className="text-[9px] text-theme-text-muted dark:text-theme-text-dark-muted font-bold uppercase mb-0.5">Bütçe</span>
-              <div className="text-xs font-bold text-theme-text-main dark:text-theme-text-dark-main mb-0.5">{formattedBudget}</div>
+              <span className="text-[10px] text-theme-text-muted dark:text-theme-text-dark-muted font-bold mb-0.5">Bütçe</span>
+              <div className="text-xs font-bold text-theme-text-main dark:text-theme-text-dark-main mb-0.5">
+                {budgetVal.amount} <span className="text-[10px] font-semibold text-theme-text-muted">{budgetVal.suffix}</span>
+              </div>
               <div className={`flex items-center gap-0.5 font-bold text-[10px] ${budgetPct >= 0 ? 'text-theme-success dark:text-theme-success' : 'text-red-500 dark:text-red-400'}`}>
                 {budgetPct >= 0 ? <TrendingUp size={10} className="text-theme-success" /> : <TrendingDown size={10} />}
                 {budgetPct > 0 ? '+' : ''}{budgetPct}%
               </div>
             </div>
             <div className="flex flex-col items-center justify-center">
-              <span className="text-[9px] text-theme-text-muted dark:text-theme-text-dark-muted font-bold uppercase mb-0.5">Geçen Dönem</span>
-              <div className="text-xs font-bold text-theme-text-main dark:text-theme-text-dark-main mb-0.5">{formattedPy}</div>
+              <span className="text-[10px] text-theme-text-muted dark:text-theme-text-dark-muted font-bold mb-0.5">Geçen Dönem</span>
+              <div className="text-xs font-bold text-theme-text-main dark:text-theme-text-dark-main mb-0.5">
+                {pyVal.amount} <span className="text-[10px] font-semibold text-theme-text-muted">{pyVal.suffix}</span>
+              </div>
               <div className={`flex items-center gap-0.5 font-bold text-[10px] ${yoyPct >= 0 ? 'text-theme-success dark:text-theme-success' : 'text-red-500 dark:text-red-400'}`}>
                 {yoyPct >= 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
                 {yoyPct > 0 ? '+' : ''}{yoyPct}%

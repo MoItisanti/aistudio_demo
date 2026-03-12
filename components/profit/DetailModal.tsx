@@ -65,9 +65,9 @@ export const DetailModal = ({ row, onClose }: { row: any, onClose: () => void })
 
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in zoom-in-95 duration-200">
-      <div className="bg-theme-card-light dark:bg-theme-card-dark w-full max-w-4xl rounded-2xl shadow-2xl flex flex-col overflow-hidden h-[500px] md:h-[600px]">
+      <div className="bg-theme-card-light dark:bg-theme-card-dark w-[500px] max-w-4xl rounded-2xl shadow-2xl flex flex-col overflow-hidden h-[550px] md:h-[650px]">
         {/* Header */}
-        <div className="bg-theme-primary px-4 py-3 md:px-6 md:py-4 flex justify-between items-center shrink-0 border-b border-theme-secondary/60 z-10">
+        <div className="bg-theme-primary px-3 py-2 md:px-4 md:py-2 flex justify-between items-center shrink-0 border-b border-theme-secondary/60 z-10">
           <div>
             <h3 className="text-white font-bold text-sm md:text-base">{row.name}</h3>
             <span className="text-white/60 text-[10px] md:text-xs uppercase tracking-wider">Aylık Detay Analizi</span>
@@ -105,7 +105,7 @@ export const DetailModal = ({ row, onClose }: { row: any, onClose: () => void })
                   <div className="text-right">Gerçekleşen</div>
                   <div className="text-right">%</div>
                   <div className="text-right">Bütçe %</div>
-                  <div className="text-right pr-2">Geçen Yıl %</div>
+                  <div className="text-right pr-2">G. Yıl %</div>
                 </div>
                 {monthlyData.map((item, i) => (
                   <div key={i} className="grid grid-cols-5 p-3 text-xs border-b border-gray-50 dark:border-theme-primary/40/50 last:border-0 hover:bg-theme-bg-light dark:hover:bg-theme-card-light/5 transition-colors">

@@ -49,11 +49,6 @@ const HomeContent = ({ onNavigate }: { onNavigate: (id: PageID) => void }) => {
           </div>
         </div>
 
-        {/* Elegant Horizontal Divider */}
-        <div className="absolute inset-x-0 bottom-[4.5rem] flex justify-center z-10 pointer-events-none animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
-          <div className="w-1/2 md:w-1/3 max-w-sm h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-[0_1px_8px_rgba(255,255,255,0.2)] rounded-full"></div>
-        </div>
-
         {/* Banner Footer (Date) */}
         <div className="absolute inset-x-0 bottom-6 flex justify-center z-10 pointer-events-none animate-in fade-in slide-in-from-bottom-5 duration-700 delay-300">
           <div className="flex items-center gap-2 text-white/90 bg-black/15 px-4 py-1.5 rounded-full backdrop-blur-md shadow-[inset_0_1px_rgba(255,255,255,0.1)] border border-white/10">

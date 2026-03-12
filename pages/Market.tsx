@@ -76,7 +76,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
 
   const renderLineChart = (isModal: boolean = false) => (
     <div className="w-full h-full overflow-x-auto custom-scrollbar">
-      <div className="min-w-[600px] md:min-w-0 h-[280px]">
+      <div className="min-w-[600px] md:min-w-0 h-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={chart.data}
@@ -130,7 +130,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
                   strokeWidth={3}
                   dot={{ r: 4, fill: color, strokeWidth: 2, stroke: '#fff' }}
                   activeDot={{ r: 6 }}
-                  isAnimationActive={false}
+                  animationDuration={600}
                 >
                   <LabelList
                     dataKey={dataKey}
@@ -154,7 +154,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
 
   const renderBarChart = () => (
     <div className="w-full h-full overflow-x-auto custom-scrollbar">
-      <div className="min-w-[600px] md:min-w-0 h-[280px]">
+      <div className="min-w-[600px] md:min-w-0 h-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={transformedData}
@@ -182,7 +182,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
                   dataKey={month}
                   name={month}
                   radius={[4, 4, 0, 0]}
-                  isAnimationActive={false}
+                  animationDuration={600}
                 >
                   {transformedData.map((entry: any, index: number) => (
                     <Cell
@@ -318,7 +318,7 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
 
   const renderModalLineChart = (chart: any) => (
     <div className="w-full h-full overflow-x-auto custom-scrollbar">
-      <div className="min-w-[800px] md:min-w-0 h-full">
+      <div className="min-w-[800px] md:min-w-0 w-full h-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={chart.data}
@@ -369,7 +369,7 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
                   strokeWidth={3}
                   dot={{ r: 4, fill: color, strokeWidth: 2, stroke: '#fff' }}
                   activeDot={{ r: 6 }}
-                  isAnimationActive={false}
+                  animationDuration={600}
                 >
                   <LabelList
                     dataKey={dataKey}
@@ -449,7 +449,7 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
 
     return (
       <div className="w-full h-full overflow-x-auto custom-scrollbar">
-        <div className="min-w-[800px] md:min-w-0 h-full">
+        <div className="min-w-[800px] md:min-w-0 w-full h-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={transformedData}
@@ -477,7 +477,7 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
                     dataKey={month}
                     name={month}
                     radius={[4, 4, 0, 0]}
-                    isAnimationActive={false}
+                    animationDuration={600}
                   >
                     {transformedData.map((entry: any, index: number) => (
                       <Cell

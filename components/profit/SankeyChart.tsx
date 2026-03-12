@@ -111,7 +111,7 @@ export const ProfitSankeyChart = ({ darkMode }: { darkMode: boolean }) => {
   }, [darkMode]);
 
   return (
-    <div className="bg-theme-card-light dark:bg-theme-card-dark rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700/50 hover:shadow-lg transition-all duration-300 overflow-hidden h-[560px]">
+    <div className="bg-theme-card-light dark:bg-theme-card-dark rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden h-[520px]">
       <CardHeader title="Gelir Tablosu Akışı">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5">

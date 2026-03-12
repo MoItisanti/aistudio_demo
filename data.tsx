@@ -263,6 +263,19 @@ export const NEGATIVE_GROSS_MARGIN_SKUS = [
   { id: 10, no: '404412', name: 'Pınar Dilimli Burger Peyniri', current: 1500, share: 1.4, budgetVar: -5.5, yearVar: -3.4, value: -4.2 },
 ];
 
+export const NEGATIVE_CONTRIBUTION_SKUS = [
+  { id: 1, no: '201045', name: 'Pınar Süt 1L Yarım Yağlı', current: 12500, share: 12.1, budgetVar: -10.5, yearVar: -6.4, value: -6.5 },
+  { id: 2, no: '202301', name: 'Pınar Labne 200g', current: 8400, share: 8.5, budgetVar: -4.2, yearVar: -1.1, value: -3.2 },
+  { id: 3, no: '301244', name: 'Pınar Organik Yoğurt 750g', current: 3100, share: 3.2, budgetVar: -1.4, yearVar: 1.5, value: -1.1 },
+  { id: 4, no: '305622', name: 'Pınar Denge Laktozsuz 1L', current: 2800, share: 2.9, budgetVar: -4.5, yearVar: -0.2, value: -2.8 },
+  { id: 5, no: '401123', name: 'Pınar Gurme Cheddar 200g', current: 1900, share: 1.8, budgetVar: -1.1, yearVar: -0.4, value: -1.2 },
+  { id: 6, no: '308901', name: 'Pınar Ayran 1.5L', current: 5400, share: 5.2, budgetVar: -1.2, yearVar: -0.1, value: -0.5 },
+  { id: 7, no: '207812', name: 'Pınar Labne 400g', current: 3600, share: 3.5, budgetVar: -2.1, yearVar: -1.2, value: -1.8 },
+  { id: 8, no: '209933', name: 'Pınar Beyaz 200g', current: 2100, share: 2.0, budgetVar: -1.9, yearVar: -0.5, value: -1.3 },
+  { id: 9, no: '505511', name: 'Pınar Sos Barbecue 350g', current: 1100, share: 1.1, budgetVar: -6.5, yearVar: -4.0, value: -5.5 },
+  { id: 10, no: '404412', name: 'Pınar Dilimli Burger Peyniri', current: 1500, share: 1.4, budgetVar: -3.5, yearVar: -2.4, value: -3.2 },
+];
+
 // Hierarchy Data for Header Filter
 export const HIERARCHY_DATA = [
   {

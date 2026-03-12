@@ -1,5 +1,5 @@
 import React from 'react';
-import { PROFIT_KPI_TRENDS, NEGATIVE_EBITDA_SKUS, NEGATIVE_GROSS_MARGIN_SKUS, INCOME_STATEMENT_DATA } from '../data';
+import { PROFIT_KPI_TRENDS, NEGATIVE_EBITDA_SKUS, NEGATIVE_GROSS_MARGIN_SKUS, NEGATIVE_CONTRIBUTION_SKUS, INCOME_STATEMENT_DATA } from '../data';
 import { FlipKpiCard } from '../components/profit/FlipKpiCard';
 import { IncomeStatementTable } from '../components/profit/IncomeTable';
 import { SkuTable } from '../components/profit/SkuTable';
@@ -28,6 +28,7 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
 
   const ciroData = getData('net_sales');
   const ebitdaData = getData('ebitda');
+  const brutKarData = getData('gross_margin');
   const katkiData = getData('contribution');
   const iadeData = getData('sales_returns');
 
@@ -35,7 +36,7 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
     <div className="p-6 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
 
       {/* 1. KPI Cards Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
         <FlipKpiCard
           title="Ciro"
           value={ciroData.value}
@@ -44,6 +45,25 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
           yoyPct={ciroData.yoyPct}
           budgetValue={ciroData.budgetValue}
           pyValue={ciroData.pyValue}
+        />
+        <FlipKpiCard
+          title="Katkı Payı"
+          value={katkiData.value}
+          chartData={PROFIT_KPI_TRENDS}
+          budgetPct={katkiData.budgetPct}
+          yoyPct={katkiData.yoyPct}
+          budgetValue={katkiData.budgetValue}
+          pyValue={katkiData.pyValue}
+        />
+
+        <FlipKpiCard
+          title="Brüt Kâr"
+          value={brutKarData.value}
+          chartData={PROFIT_KPI_TRENDS}
+          budgetPct={brutKarData.budgetPct}
+          yoyPct={brutKarData.yoyPct}
+          budgetValue={brutKarData.budgetValue}
+          pyValue={brutKarData.pyValue}
         />
 
         <FlipKpiCard
@@ -57,16 +77,6 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
         />
 
         <FlipKpiCard
-          title="Katkı Payı"
-          value={katkiData.value}
-          chartData={PROFIT_KPI_TRENDS}
-          budgetPct={katkiData.budgetPct}
-          yoyPct={katkiData.yoyPct}
-          budgetValue={katkiData.budgetValue}
-          pyValue={katkiData.pyValue}
-        />
-
-        <FlipKpiCard
           title="İade"
           value={iadeData.value}
           chartData={PROFIT_KPI_TRENDS}
@@ -77,14 +87,25 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
         />
       </div>
 
-      {/* 2. Main Detail Row: 3 Columns Side by Side */}
+      {/* 2. Main Detail Row: Income Statement + Sankey */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        {/* Column 1: Income Statement */}
-        <div className="w-full">
+        <div className="w-full xl:col-span-1">
           <IncomeStatementTable />
         </div>
+        <div className="w-full xl:col-span-2">
+          <ProfitSankeyChart darkMode={darkMode} />
+        </div>
+      </div>
 
-        {/* Column 2: Negative Gross Margin SKUs */}
+      {/* 3. Bottom Row: 3 SKU Tables */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="w-full">
+          <SkuTable
+            title="Negatif Katkı Payı SKU'lar"
+            data={NEGATIVE_CONTRIBUTION_SKUS}
+            valueLabel="Katkı Payı Marjı"
+          />
+        </div>
         <div className="w-full">
           <SkuTable
             title="Negatif Brüt Kâr SKU'lar"
@@ -92,8 +113,6 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
             valueLabel="Brüt Kâr Marjı"
           />
         </div>
-
-        {/* Column 3: Negative EBITDA SKUs */}
         <div className="w-full">
           <SkuTable
             title="Negatif EBITDA SKU'lar"
@@ -101,11 +120,6 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
             valueLabel="Ebitda Marjı"
           />
         </div>
-      </div>
-
-      {/* 3. Bottom Row: Sankey Chart (Full Width) */}
-      <div className="w-full">
-        <ProfitSankeyChart darkMode={darkMode} />
       </div>
     </div>
   );

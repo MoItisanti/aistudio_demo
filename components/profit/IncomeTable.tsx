@@ -66,11 +66,11 @@ export const IncomeStatementTable = () => {
 
         {/* Column Headers */}
         <div className={`flex gap-1 px-4 py-2 font-black text-theme-text-muted dark:text-theme-dark-muted tracking-wide items-center ${isModal ? 'text-[12px]' : 'text-[10px]'}`}>
-          <div className="flex-[1.5] text-left whitespace-normal leading-tight flex items-center pl-5">Finansal Kalem</div>
-          <div className="flex-1 text-right whitespace-normal leading-tight flex items-center justify-end">Cari Dönem</div>
-          <div className="w-8 md:w-12 text-right whitespace-normal leading-tight flex items-center justify-end">%</div>
-          <div className="w-10 md:w-14 text-right whitespace-normal leading-tight flex items-center justify-end">Bütçe %</div>
-          <div className="w-10 md:w-14 text-right whitespace-normal leading-tight flex items-center justify-end">Geçen Yıl %</div>
+          <div className="flex-[2] md:flex-[3] text-left whitespace-normal leading-tight flex items-center pl-5">Finansal Kalem</div>
+          <div className="flex-[1.5] text-right whitespace-normal leading-tight flex items-center justify-end">Cari Dönem</div>
+          <div className="w-10 md:w-12 text-right whitespace-normal leading-tight flex items-center justify-end">%</div>
+          <div className="w-14 md:w-16 text-right whitespace-normal leading-tight flex items-center justify-end">Bütçe %</div>
+          <div className="w-14 md:w-16 text-right whitespace-normal leading-tight flex items-center justify-end">Geçen Yıl %</div>
         </div>
       </div>
 
@@ -94,7 +94,7 @@ export const IncomeStatementTable = () => {
                   : 'text-theme-text-main dark:text-theme-text-dark-main'}
               `}
             >
-              <div className="flex-[1.5] flex items-center justify-start min-w-0">
+              <div className="flex-[2] md:flex-[3] flex items-center justify-start min-w-0">
                 {row.level > 0 && (
                   <div className="w-[20px] shrink-0 flex items-center justify-center">
                     {isParent && (
@@ -107,19 +107,19 @@ export const IncomeStatementTable = () => {
                     )}
                   </div>
                 )}
-                <TruncatedTooltip text={row.name} className="text-left flex-1" />
+                <TruncatedTooltip text={row.name} className="text-left w-full min-w-0" />
               </div>
 
-              <div className={`flex-1 text-right font-semibold whitespace-nowrap overflow-hidden text-clip ${row.current < 0 ? 'text-theme-text-muted' : ''}`}>
+              <div className={`flex-[1.5] text-right whitespace-nowrap overflow-hidden text-clip`}>
                 {formatNumber(row.current)}
               </div>
-              <div className="w-8 md:w-12 text-right text-theme-text-muted dark:text-theme-text-dark-muted whitespace-nowrap overflow-hidden text-clip">
+              <div className="w-10 md:w-12 text-right text-theme-text-muted dark:text-theme-text-dark-muted whitespace-nowrap overflow-hidden text-clip">
                 {row.share !== 0 ? Math.abs(row.share).toFixed(1) : '-'}
               </div>
-              <div className={`w-10 md:w-14 text-right font-medium whitespace-nowrap overflow-hidden text-clip ${row.budgetVar > 0 ? 'text-theme-success dark:text-theme-success' : row.budgetVar < 0 ? 'text-theme-danger' : 'text-theme-text-muted'}`}>
+              <div className={`w-14 md:w-16 text-right font-medium whitespace-nowrap overflow-hidden text-clip ${row.budgetVar > 0 ? 'text-theme-success dark:text-theme-success' : row.budgetVar < 0 ? 'text-theme-danger' : 'text-theme-text-muted'}`}>
                 {formatPercent(row.budgetVar)}
               </div>
-              <div className={`w-10 md:w-14 text-right font-medium whitespace-nowrap overflow-hidden text-clip ${row.yearVar > 0 ? 'text-theme-success dark:text-theme-success' : row.yearVar < 0 ? 'text-theme-danger' : 'text-theme-text-muted'}`}>
+              <div className={`w-14 md:w-16 text-right font-medium whitespace-nowrap overflow-hidden text-clip ${row.yearVar > 0 ? 'text-theme-success dark:text-theme-success' : row.yearVar < 0 ? 'text-theme-danger' : 'text-theme-text-muted'}`}>
                 {formatPercent(row.yearVar)}
               </div>
             </div>
@@ -131,8 +131,8 @@ export const IncomeStatementTable = () => {
 
   return (
     <>
-      <div className="bg-theme-card-light dark:bg-theme-card-dark rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-[480px] relative group">
-        <CardHeader title="Gelir Tablosu (Özet)" />
+      <div className="bg-theme-card-light dark:bg-theme-card-dark rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-[520px] relative group">
+        <CardHeader title="Gelir Tablosu" />
         <button
           onClick={() => setIsExpanded(true)}
           className="absolute top-2.5 right-3 p-1 bg-theme-card-light/10 hover:bg-theme-card-light/20 rounded-lg transition-all duration-300 text-white z-20 opacity-0 group-hover:opacity-100"
@@ -146,15 +146,15 @@ export const IncomeStatementTable = () => {
       {/* Fullscreen Modal - Compact Desktop View */}
       {isExpanded && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-0 md:p-4 bg-black/70 backdrop-blur-md animate-in fade-in zoom-in-95 duration-300">
-          <div className="bg-theme-card-light dark:bg-theme-card-dark w-full h-full md:w-full md:max-w-4xl md:h-[85vh] md:rounded-2xl shadow-2xl flex flex-col overflow-hidden relative mx-auto">
+          <div className="bg-theme-card-light dark:bg-theme-card-dark w-full h-full md:w-full md:max-w-[630px] md:h-full md:rounded-2xl shadow-2xl flex flex-col overflow-hidden relative mx-auto">
             {/* Header */}
-            <div className="bg-gradient-to-r from-theme-primary from-60% to-theme-secondary px-4 py-2.5 md:px-6 md:py-3 flex justify-between items-center shrink-0">
-              <h2 className="text-sm md:text-lg font-bold text-white uppercase tracking-widest">Gelir Tablosu - Detaylı Analiz</h2>
+            <div className="bg-gradient-to-r from-theme-primary from-60% to-theme-secondary px-3 py-2 md:px-4 md:py-2 flex justify-between items-center shrink-0">
+              <h2 className="text-sm md:text-base font-bold text-white uppercase tracking-widest">Gelir Tablosu</h2>
               <button
                 onClick={() => setIsExpanded(false)}
-                className="p-1.5 md:p-2 bg-theme-card-light/20 hover:bg-theme-card-light/30 rounded-full text-white transition-colors"
+                className="p-1 md:p-1.5 bg-theme-card-light/20 hover:bg-theme-card-light/30 rounded-full text-white transition-colors"
               >
-                <X size={20} className="md:w-[24px] md:h-[24px]" />
+                <X size={18} className="md:w-[20px] md:h-[20px]" />
               </button>
             </div>
             <div className="flex-1 flex flex-col min-h-0 bg-theme-card-light dark:bg-theme-card-dark">
