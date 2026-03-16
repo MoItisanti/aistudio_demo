@@ -49,7 +49,7 @@ export const SalesCard = ({ title, lineData, barData }: any) => {
                 <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 10 }} />
                 <Tooltip content={<CustomTooltip type="line" />} />
                 <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
-                <Line type="monotone" dataKey="lastYear" name="Geçen Dönem" stroke="#f4a261" strokeWidth={3} dot={false} />
+                <Line type="monotone" dataKey="lastYear" name="Geçen Yıl" stroke="#f4a261" strokeWidth={3} dot={false} />
                 <Line type="monotone" dataKey="budget" name="Bütçe" stroke="#9ca3af" strokeWidth={3} dot={false} strokeDasharray="5 5" />
                 <Line type="monotone" dataKey="actual" name="Fiili" stroke="#1B8D98" strokeWidth={4} activeDot={{ r: 6 }} dot={{ r: 4, fill: '#1B8D98', stroke: '#fff', strokeWidth: 2 }} />
               </LineChart>
@@ -84,7 +84,7 @@ export const SalesCard = ({ title, lineData, barData }: any) => {
           <div className="space-y-3 px-2">
             <div>
               <div className="flex justify-between text-[9px] mb-1 font-semibold text-theme-secondary dark:text-theme-text-muted/80">
-                <span>Geçen Dönem</span>
+                <span>Geçen Yıl</span>
                 <span className="text-theme-text-main dark:text-theme-text-dark-main">%85</span>
               </div>
               <div className="h-1.5 w-full bg-slate-200/30 dark:bg-theme-secondary/30 rounded-full overflow-hidden">

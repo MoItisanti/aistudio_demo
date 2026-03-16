@@ -22,11 +22,12 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
       budgetPct: item.budgetVar,
       yoyPct: item.yearVar,
       budgetValue,
-      pyValue
+      pyValue,
+      marginPct: item.share
     };
   };
 
-  const ciroData = getData('net_sales');
+  const ciroData = getData('gross_sales');
   const ebitdaData = getData('ebitda');
   const brutKarData = getData('gross_margin');
   const katkiData = getData('contribution');
@@ -38,13 +39,14 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
       {/* 1. KPI Cards Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
         <FlipKpiCard
-          title="Ciro"
+          title="Brüt Satış"
           value={ciroData.value}
           chartData={PROFIT_KPI_TRENDS}
           budgetPct={ciroData.budgetPct}
           yoyPct={ciroData.yoyPct}
           budgetValue={ciroData.budgetValue}
           pyValue={ciroData.pyValue}
+          marginPct={ciroData.marginPct}
         />
         <FlipKpiCard
           title="Katkı Payı"
@@ -54,26 +56,29 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
           yoyPct={katkiData.yoyPct}
           budgetValue={katkiData.budgetValue}
           pyValue={katkiData.pyValue}
+          marginPct={katkiData.marginPct}
         />
 
         <FlipKpiCard
-          title="Brüt Kâr"
+          title="Brüt Satış Kârı"
           value={brutKarData.value}
           chartData={PROFIT_KPI_TRENDS}
           budgetPct={brutKarData.budgetPct}
           yoyPct={brutKarData.yoyPct}
           budgetValue={brutKarData.budgetValue}
           pyValue={brutKarData.pyValue}
+          marginPct={brutKarData.marginPct}
         />
 
         <FlipKpiCard
-          title="EBITDA"
+          title="Ebitda"
           value={ebitdaData.value}
           chartData={PROFIT_KPI_TRENDS}
           budgetPct={ebitdaData.budgetPct}
           yoyPct={ebitdaData.yoyPct}
           budgetValue={ebitdaData.budgetValue}
           pyValue={ebitdaData.pyValue}
+          marginPct={ebitdaData.marginPct}
         />
 
         <FlipKpiCard
@@ -84,6 +89,7 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
           yoyPct={iadeData.yoyPct}
           budgetValue={iadeData.budgetValue}
           pyValue={iadeData.pyValue}
+          marginPct={iadeData.marginPct}
         />
       </div>
 
@@ -101,21 +107,21 @@ const ProfitContent = ({ darkMode }: { darkMode: boolean }) => {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         <div className="w-full">
           <SkuTable
-            title="Negatif Katkı Payı SKU'lar"
+            title="Katkı Payı Negatif Sku'lar"
             data={NEGATIVE_CONTRIBUTION_SKUS}
             valueLabel="Katkı Payı Marjı"
           />
         </div>
         <div className="w-full">
           <SkuTable
-            title="Negatif Brüt Kâr SKU'lar"
+            title="Brüt Satış Kârı Negatif Sku'lar"
             data={NEGATIVE_GROSS_MARGIN_SKUS}
             valueLabel="Brüt Kâr Marjı"
           />
         </div>
         <div className="w-full">
           <SkuTable
-            title="Negatif EBITDA SKU'lar"
+            title="Ebitda Negatif Sku'lar"
             data={NEGATIVE_EBITDA_SKUS}
             valueLabel="Ebitda Marjı"
           />

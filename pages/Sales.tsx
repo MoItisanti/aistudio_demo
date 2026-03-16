@@ -3,6 +3,7 @@ import { MONTHS, CHART_PALETTE } from '../data';
 import { Settings } from 'lucide-react';
 import { SalesCard } from '../components/sales/SummaryCard';
 import { SalesDetailTable } from '../components/sales/DetailTable';
+import { MatrixAnalysisChart } from '../components/sales/MatrixAnalysisChart';
 
 // --- Mock Data ---
 const SALES_TREND_DATA = MONTHS.map((m, i) => ({
@@ -13,7 +14,7 @@ const SALES_TREND_DATA = MONTHS.map((m, i) => ({
 }));
 
 const SALES_SUMMARY = [
-  { name: 'Geçen Dönem', value: 10500, fill: CHART_PALETTE[3] },
+  { name: 'Geçen Yıl', value: 10500, fill: CHART_PALETTE[3] },
   { name: 'Bütçe', value: 11800, fill: CHART_PALETTE[4] },
   { name: 'Fiili', value: 11200, fill: CHART_PALETTE[1] },
   { name: 'Tahmini Bitiş', value: 12800, fill: CHART_PALETTE[2] },
@@ -32,6 +33,14 @@ const SalesContent = () => {
             barData={SALES_SUMMARY}
           />
           <SalesDetailTable />
+        </div>
+      );
+    }
+
+    if (activeTab === 'regional') {
+      return (
+        <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <MatrixAnalysisChart />
         </div>
       );
     }
@@ -81,7 +90,7 @@ const SalesContent = () => {
               : 'text-theme-text-muted/80 hover:text-theme-primary dark:hover:text-theme-text-muted'
               }`}
           >
-            Bölgesel Analiz
+            Matriks Analizi
           </button>
         </div>
       </div>

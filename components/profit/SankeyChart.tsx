@@ -11,12 +11,12 @@ export const ProfitSankeyChart = ({ darkMode }: { darkMode: boolean }) => {
   const plotlyContainerRef = useRef<HTMLDivElement>(null);
 
   const THEME = {
-    GREEN_NODE: '#1bd488',
+    GREEN_NODE: '#17ad7bff',
     GREEN_LINK: 'rgba(27, 212, 136, 0.35)',
     RED_NODE: '#EF4444',
     RED_LINK: 'rgba(239, 68, 68, 0.35)',
-    GREY_NODE: '#6b7280',
-    GREY_LIGHT_NODE: '#6b7280',
+    GREY_NODE: '#64748B',
+    GREY_LIGHT_NODE: '#64748B',
     GREY_LINK: 'rgba(107, 114, 128, 0.35)',
   };
 
@@ -115,12 +115,16 @@ export const ProfitSankeyChart = ({ darkMode }: { darkMode: boolean }) => {
       <CardHeader title="Gelir Tablosu Akışı">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-lg bg-theme-accent"></div>
-            <span className="text-[9px] font-bold text-white uppercase">Kâr Akışı</span>
+            <div className="w-2.5 h-2.5 rounded-lg bg-theme-success"></div>
+            <span className="text-[9px] font-bold text-white">Kâr Akışı</span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-2.5 h-2.5 rounded-lg bg-theme-danger"></div>
-            <span className="text-[9px] font-bold text-white uppercase">Gider Akışı</span>
+            <span className="text-[9px] font-bold text-white">Gider Akışı</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-lg bg-theme-text-muted"></div>
+            <span className="text-[9px] font-bold text-white">Gelir Akışı</span>
           </div>
         </div>
       </CardHeader>

@@ -35,8 +35,8 @@ export const SalesDetailTable = () => {
                             Ana Ürün Grubu
                         </div>
                     </div>
-                    <div {...getHeaderProps(1)}>Geçen Dönem</div>
-                    <div {...getHeaderProps(2)}>Geçen Dönem BK</div>
+                    <div {...getHeaderProps(1)}>Geçen Yıl</div>
+                    <div {...getHeaderProps(2)}>Geçen Yıl BK</div>
                     <div {...getHeaderProps(3)}>Bütçe</div>
                     <div {...getHeaderProps(4)}>Gerçekleşen BK</div>
                     <div {...getHeaderProps(5)}>Tahmini Bitiş</div>

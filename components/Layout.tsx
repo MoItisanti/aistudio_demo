@@ -303,8 +303,8 @@ export const Header = ({ darkMode, toggleDarkMode, currentPage, onNavigate, sele
           <ToggleYtdMtd />
           <div className="w-px h-6 bg-theme-secondary/30 dark:bg-white/10 mx-1"></div>
           <HeaderSelect label="Dönem" value="2024 - Q3" />
-          <HeaderSelect label="Kanal" value="Tümü" />
           <HeaderSelect label="Fabrika" value="Tümü" />
+          <HeaderSelect label="Kanal" value="Tümü" />
           <HeaderSelect label="Ana Ürün" value="Tümü" />
         </>
       );

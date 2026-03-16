@@ -177,6 +177,10 @@ export interface IncomeRow {
 }
 
 export const INCOME_STATEMENT_DATA: IncomeRow[] = [
+  { id: 'gross_sales_ton', name: 'Brüt Satış Ton', current: 18520, share: 100.0, budgetVar: 5.2, yearVar: 8.4, level: 0, isHeader: true },
+  { id: 'returns_ton', name: 'İade Ton', current: -240, share: 1.3, budgetVar: -2.1, yearVar: 1.5, level: 0, isHeader: true },
+  { id: 'net_sales_ton', name: 'Net Satış Ton', current: 18280, share: 98.7, budgetVar: 5.4, yearVar: 8.7, level: 0, isHeader: true },
+
   { id: 'gross_sales', name: 'BRÜT SATIŞ TUTARI', current: 719502256, share: 122.4, budgetVar: 4.2, yearVar: 12.1, level: 0, isHeader: true },
   { id: 'prod_sales', name: 'Üretimden Satışlar', current: 696380388, share: 123.3, budgetVar: 2.5, yearVar: 8.4, level: 1 },
   { id: 'gross_sales_detail', name: 'Brüt Satış', current: 696898389, share: 123.4, budgetVar: 1.8, yearVar: 7.2, level: 2 },
@@ -208,7 +212,7 @@ export const INCOME_STATEMENT_DATA: IncomeRow[] = [
   { id: 'cogs_deprec', name: 'Amortisman Giderleri', current: -13917604, share: 2.5, budgetVar: 0.0, yearVar: 0.1, level: 1 },
   { id: 'cogs_other_prod', name: 'Diğer Genel Üretim Giderleri', current: -9383619, share: 1.7, budgetVar: -0.2, yearVar: 0.7, level: 1 },
 
-  { id: 'gross_margin', name: 'BRÜT SATIŞ KARI veya ZARARI', current: 71208509, share: 12.6, budgetVar: 8.2, yearVar: 25.4, level: 0, isHeader: true },
+  { id: 'gross_margin', name: 'BRÜT SATIŞ KARI veya ZARARI', current: 71208509, share: 12.6, budgetVar: 8.2, yearVar: -25.4, level: 0, isHeader: true },
 
   { id: 'rnd', name: 'Ar-Ge Giderleri', current: -7148500, share: 1.3, budgetVar: -0.5, yearVar: 0.2, level: 0, isHeader: true },
 

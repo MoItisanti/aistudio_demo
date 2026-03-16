@@ -43,22 +43,22 @@ export const IncomeStatementTable = () => {
         {/* Filters Row */}
         <div className="flex items-center gap-2 p-3 border-b border-slate-200 dark:border-slate-700/50/50 overflow-x-auto no-scrollbar">
           <div className="relative shrink-0">
-            <button className="flex items-center gap-2 px-3 py-1.5 bg-theme-card-light dark:bg-theme-card-dark/80 text-theme-text-main dark:text-theme-text-dark-main rounded-lg text-[10px] font-semibold border border-slate-200 dark:border-slate-700/50 hover:border-theme-secondary transition-all shadow-sm">
-              <Filter size={12} className="text-theme-secondary" /> Dönem: {periodFilter} <ChevronDown size={12} className="opacity-50" />
+            <button className="flex items-center gap-2 px-3 py-1.5 bg-theme-card-light dark:bg-theme-card-dark/80 text-theme-text-main dark:text-theme-text-dark-main rounded-lg text-[10px] font-semibold border border-slate-200 dark:border-slate-700/50 hover:border-theme-accent transition-all shadow-sm">
+              <Filter size={12} className="text-theme-accent" /> Dönem: {periodFilter} <ChevronDown size={12} className="opacity-50" />
             </button>
           </div>
           <div className="relative shrink-0">
-            <button className="flex items-center gap-2 px-3 py-1.5 bg-theme-card-light dark:bg-theme-card-dark/80 text-theme-text-main dark:text-theme-text-dark-main rounded-lg text-[10px] font-semibold border border-slate-200 dark:border-slate-700/50 hover:border-theme-secondary transition-all shadow-sm">
-              Kanal: {channelFilter} <ChevronDown size={12} className="opacity-50" />
-            </button>
-          </div>
-          <div className="relative shrink-0">
-            <button className="flex items-center gap-2 px-3 py-1.5 bg-theme-card-light dark:bg-theme-card-dark/80 text-theme-text-main dark:text-theme-text-dark-main rounded-lg text-[10px] font-semibold border border-slate-200 dark:border-slate-700/50 hover:border-theme-secondary transition-all shadow-sm">
+            <button className="flex items-center gap-2 px-3 py-1.5 bg-theme-card-light dark:bg-theme-card-dark/80 text-theme-text-main dark:text-theme-text-dark-main rounded-lg text-[10px] font-semibold border border-slate-200 dark:border-slate-700/50 hover:border-theme-accent transition-all shadow-sm">
               Fabrika: {factoryFilter} <ChevronDown size={12} className="opacity-50" />
             </button>
           </div>
           <div className="relative shrink-0">
-            <button className="flex items-center gap-2 px-3 py-1.5 bg-theme-card-light dark:bg-theme-card-dark/80 text-theme-text-main dark:text-theme-text-dark-main rounded-lg text-[10px] font-semibold border border-slate-200 dark:border-slate-700/50 hover:border-theme-secondary transition-all shadow-sm">
+            <button className="flex items-center gap-2 px-3 py-1.5 bg-theme-card-light dark:bg-theme-card-dark/80 text-theme-text-main dark:text-theme-text-dark-main rounded-lg text-[10px] font-semibold border border-slate-200 dark:border-slate-700/50 hover:border-theme-accent transition-all shadow-sm">
+              Kanal: {channelFilter} <ChevronDown size={12} className="opacity-50" />
+            </button>
+          </div>
+          <div className="relative shrink-0">
+            <button className="flex items-center gap-2 px-3 py-1.5 bg-theme-card-light dark:bg-theme-card-dark/80 text-theme-text-main dark:text-theme-text-dark-main rounded-lg text-[10px] font-semibold border border-slate-200 dark:border-slate-700/50 hover:border-theme-accent transition-all shadow-sm">
               Ana Ürün: {hierarchyFilter} <ChevronDown size={12} className="opacity-50" />
             </button>
           </div>
