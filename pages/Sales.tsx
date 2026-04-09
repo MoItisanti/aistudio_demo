@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { MONTHS, CHART_PALETTE } from '../data';
 import { Settings } from 'lucide-react';
-import { SalesCard } from '../components/sales/SummaryCard';
-import { SalesDetailTable } from '../components/sales/DetailTable';
-import { MatrixAnalysisChart } from '../components/sales/MatrixAnalysisChart';
+import { SalesCard } from '../components/sales/shared/SummaryCard';
+import { SalesDetailTable } from '../components/sales/daily/DailySalesTable';
+import { MatrixAnalysisChart } from '../components/sales/regional/MatrixAnalysisChart';
+import { MonthlySalesTable } from '../components/sales/monthly/MonthlySalesTable';
 
 // --- Mock Data ---
 const SALES_TREND_DATA = MONTHS.map((m, i) => ({
@@ -41,6 +42,19 @@ const SalesContent = () => {
       return (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
           <MatrixAnalysisChart />
+        </div>
+      );
+    }
+
+    if (activeTab === 'monthly') {
+      return (
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <SalesCard
+            title="Aylık Satış Özeti"
+            lineData={SALES_TREND_DATA}
+            barData={SALES_SUMMARY}
+          />
+          <MonthlySalesTable />
         </div>
       );
     }

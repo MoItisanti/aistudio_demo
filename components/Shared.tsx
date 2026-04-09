@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 export const CardHeader = ({ title, children }: { title: string, children?: React.ReactNode }) => (
-  <div className="bg-gradient-to-r from-theme-primary from-50% to-theme-secondary px-4 py-2.5 flex justify-between items-center w-full relative z-10">
+  <div className="bg-gradient-to-r from-theme-primary to-theme-secondary px-4 py-2.5 flex justify-between items-center w-full relative z-10">
     <h3 className="text-[11px] font-bold text-theme-text-dark-main tracking-wider">{title}</h3>
     <div className="flex items-center gap-2">
       {children}

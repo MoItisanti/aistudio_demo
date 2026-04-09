@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Settings } from 'lucide-react';
 import { PageID } from './types';
 import { Header } from './components/Layout';
+import AIAssistant from './components/AIAssistant';
 import HomeContent from './pages/Home';
 import ExecutiveContent from './pages/Executive';
 import ProfitContent from './pages/Profit';
@@ -60,6 +61,7 @@ const App: React.FC = () => {
         />
         <div className="flex-1">{renderContent()}</div>
       </main>
+      <AIAssistant />
       <style>{`
         @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .animate-spin-slow { animation: spin-slow 12s linear infinite; }

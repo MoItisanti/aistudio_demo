@@ -1,8 +1,8 @@
 import React from 'react';
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, BarChart, Bar, LabelList, Cell } from 'recharts';
-import { CardHeader, CustomTooltip } from '../Shared';
+import { CardHeader, CustomTooltip } from '../../Shared';
 import { SalesDonutChart } from './DonutChart';
-import { SALES_CHANNEL_DATA } from '../../data';
+import { SALES_CHANNEL_DATA } from '../../../data';
 
 // --- Custom Label for Bar Chart ---
 const CustomComparisonLabel = (props: any) => {
