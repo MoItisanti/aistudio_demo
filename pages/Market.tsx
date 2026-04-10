@@ -36,19 +36,7 @@ const MarketFlipCard = ({ chart, index, selectedBrands, setExpandedIndex, showCh
     return brandData;
   }).filter(Boolean);
 
-  const totalData: any = { brand: 'Toplam', color: MARKET_PALETTE[5] || '#475569' };
-  last6MonthsData.forEach((monthData: any) => {
-    let sum = 0;
-    for (let i = 1; i <= 5; i++) {
-      const brandName = i === 1 ? "Pınar Süt" : `Rakip ${i - 1}`;
-      if (selectedBrands.includes(brandName)) {
-        sum += monthData[`comp${i}`] || 0;
-      }
-    }
-    totalData[monthData.name] = sum;
-  });
-
-  const transformedData = [totalData, ...brandDataArray];
+  const transformedData = [...brandDataArray];
 
   const CustomBarTooltip = ({ active, payload, label }: any) => {
     if (!active || !payload || !payload.length) return null;
@@ -409,19 +397,7 @@ const MarketContent: React.FC<MarketContentProps> = ({ selectedBrands }) => {
       return brandData;
     }).filter(Boolean);
 
-    const totalData: any = { brand: 'Toplam', color: CHART_PALETTE[5] || '#475569' };
-    last6MonthsData.forEach((monthData: any) => {
-      let sum = 0;
-      for (let i = 1; i <= 5; i++) {
-        const brandName = i === 1 ? "Pınar Süt" : `Rakip ${i - 1}`;
-        if (selectedBrands.includes(brandName)) {
-          sum += monthData[`comp${i}`] || 0;
-        }
-      }
-      totalData[monthData.name] = sum;
-    });
-
-    const transformedData = [totalData, ...brandDataArray];
+    const transformedData = [...brandDataArray];
 
     const CustomBarTooltip = ({ active, payload, label }: any) => {
       if (!active || !payload || !payload.length) return null;

@@ -22,7 +22,7 @@ const CustomComparisonLabel = (props: any) => {
     <text
       x={x + width / 2}
       y={y - 10}
-      fill={isPos ? '#10b981' : '#ef4444'}
+      fill={isPos ? '#17ad7bff' : '#ef4444'}
       textAnchor="middle"
       fontSize={10}
       fontWeight="bold"
@@ -49,9 +49,9 @@ export const SalesCard = ({ title, lineData, barData }: any) => {
                 <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 10 }} />
                 <Tooltip content={<CustomTooltip type="line" />} />
                 <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
-                <Line type="monotone" dataKey="lastYear" name="Geçen Yıl" stroke="#f4a261" strokeWidth={3} dot={false} />
+                <Line type="monotone" dataKey="lastYear" name="Geçen Yıl" stroke="#F59E0B" strokeWidth={3} dot={false} />
                 <Line type="monotone" dataKey="budget" name="Bütçe" stroke="#9ca3af" strokeWidth={3} dot={false} strokeDasharray="5 5" />
-                <Line type="monotone" dataKey="actual" name="Fiili" stroke="#1B8D98" strokeWidth={4} activeDot={{ r: 6 }} dot={{ r: 4, fill: '#1B8D98', stroke: '#fff', strokeWidth: 2 }} />
+                <Line type="monotone" dataKey="actual" name="Fiili" stroke="#3B7D86" strokeWidth={4} activeDot={{ r: 6 }} dot={{ r: 4, fill: '#3B7D86', stroke: '#fff', strokeWidth: 2 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -88,7 +88,7 @@ export const SalesCard = ({ title, lineData, barData }: any) => {
                 <span className="text-theme-text-main dark:text-theme-text-dark-main">%85</span>
               </div>
               <div className="h-1.5 w-full bg-slate-200/30 dark:bg-theme-secondary/30 rounded-full overflow-hidden">
-                <div className="h-full bg-[#f4a261] rounded-full" style={{ width: '85%' }}></div>
+                <div className="h-full bg-theme-warning rounded-full" style={{ width: '85%' }}></div>
               </div>
             </div>
             <div>

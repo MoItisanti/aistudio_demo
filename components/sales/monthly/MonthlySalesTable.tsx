@@ -7,6 +7,7 @@ import { MonthlyDetailModal } from './MonthlyDetailModal';
 export const MonthlySalesTable = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [hoveredCol, setHoveredCol] = useState<number | null>(null);
+    const [hoveredRow, setHoveredRow] = useState<number | null>(null);
     const [selectedRow, setSelectedRow] = useState<any>(null);
 
     const getHeaderProps = (colIdx: number) => ({
@@ -15,10 +16,10 @@ export const MonthlySalesTable = () => {
         className: `flex-1 p-2 text-right h-full flex items-center justify-end px-2 lg:px-3 border-r border-slate-200 dark:border-slate-700/50 transition-colors duration-200 cursor-default ${hoveredCol === colIdx ? 'bg-theme-secondary/5 dark:bg-theme-secondary/30 text-theme-secondary dark:text-theme-accent shadow-[inset_0_-2px_0_0_#3B7D86] dark:shadow-[inset_0_-2px_0_0_#2DD4BF]' : ''}`
     });
 
-    const getCellProps = (colIdx: number, valColorClass: string = '') => ({
+    const getCellProps = (colIdx: number, valColorClass: string = '', isRowHovered: boolean = false) => ({
         onMouseEnter: () => setHoveredCol(colIdx),
         onMouseLeave: () => setHoveredCol(null),
-        className: `flex-1 px-2 lg:px-3 h-full flex items-center justify-end text-right border-r border-slate-200 dark:border-slate-700/50 transition-all duration-75 cursor-pointer ${hoveredCol === colIdx ? 'bg-theme-secondary/5 dark:bg-white/5' : ''} hover:!bg-theme-secondary/10 dark:hover:!bg-white/10 hover:shadow-[inset_0_0_0_1.5px_#3B7D86] dark:hover:shadow-[inset_0_0_0_1.5px_#2DD4BF] relative hover:z-20 ${valColorClass}`
+        className: `flex-1 px-2 lg:px-3 h-full flex items-center justify-end text-right border-r border-slate-200 dark:border-slate-700/50 transition-all duration-75 cursor-pointer ${hoveredCol === colIdx ? 'bg-theme-secondary/5 dark:bg-white/5' : ''} ${isRowHovered ? '!bg-theme-secondary/10 dark:!bg-white/10 shadow-[inset_0_0_0_1.5px_#3B7D86] dark:shadow-[inset_0_0_0_1.5px_#2DD4BF] z-20' : ''} hover:!bg-theme-secondary/10 dark:hover:!bg-white/10 hover:shadow-[inset_0_0_0_1.5px_#3B7D86] dark:hover:shadow-[inset_0_0_0_1.5px_#2DD4BF] relative hover:z-30 ${valColorClass}`
     });
 
     const renderContent = (isModal = false) => (
@@ -38,7 +39,7 @@ export const MonthlySalesTable = () => {
                         </div>
                     </div>
                     <div {...getHeaderProps(1)}>Bütçe</div>
-                    <div {...getHeaderProps(2)}>Geçen Dönem</div>
+                    <div {...getHeaderProps(2)}>Geçen Yıl</div>
                     <div {...getHeaderProps(3)}>Gerçekleşen</div>
                     <div {...getHeaderProps(4)}>Geçen Yıl Fark</div>
                     <div {...getHeaderProps(5)}>Bütçe Fark</div>
@@ -55,9 +56,9 @@ export const MonthlySalesTable = () => {
                         const isSpecial = isGroup || isTotal;
 
                         // Row Background Logic
-                        let rowBg = 'bg-theme-card-light dark:bg-theme-card-dark text-theme-text-main dark:text-theme-text-dark-main'; 
+                        let rowBg = 'bg-theme-card-light dark:bg-theme-card-dark text-theme-text-main dark:text-theme-text-dark-main';
                         if (isGroup) rowBg = 'bg-slate-200/50 dark:bg-theme-secondary/30 text-theme-text-main dark:text-theme-text-dark-main';
-                        if (isTotal) rowBg = 'bg-theme-primary dark:bg-theme-primary/90 text-white'; 
+                        if (isTotal) rowBg = 'bg-theme-primary dark:bg-theme-primary/90 text-white';
                         const hoverBg = isTotal ? 'cursor-pointer hover:bg-theme-primary/80 dark:hover:bg-theme-primary/70' : 'cursor-pointer group-hover/row:bg-theme-secondary/10 dark:group-hover/row:bg-theme-secondary/20';
 
                         // Text Color Logic
@@ -71,36 +72,36 @@ export const MonthlySalesTable = () => {
                         const formatPct = (num: number) => `${num.toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`;
 
                         return (
-                            <div 
-                                key={idx} 
+                            <div
+                                key={idx}
                                 onClick={() => setSelectedRow(item)}
                                 className={`flex border-b border-slate-200 dark:border-slate-700/50 transition-colors items-center h-8 relative group/row hover:z-30 ${rowBg} ${hoverBg} ${isSpecial ? 'font-bold' : ''}`}
                             >
                                 {/* First Column: Sticky Name */}
                                 <div
-                                    onMouseEnter={() => setHoveredCol(0)}
-                                    onMouseLeave={() => setHoveredCol(null)}
-                                    className={`w-40 md:w-64 p-0 sticky left-0 z-20 border-r border-slate-200 dark:border-slate-700/50 h-full overflow-visible transition-colors duration-75 ${rowBg} ${hoverBg} ${hoveredCol === 0 ? 'shadow-[inset_0_0_0_1000px_rgba(59,125,134,0.1)] dark:shadow-[inset_0_0_0_1000px_rgba(255,255,255,0.1)]' : ''} hover:!shadow-[inset_0_0_0_1000px_rgba(59,125,134,0.2),inset_0_0_0_1.5px_#3B7D86] dark:hover:!shadow-[inset_0_0_0_1000px_rgba(255,255,255,0.2),inset_0_0_0_1.5px_#2DD4BF] relative hover:z-30`}
+                                    onMouseEnter={() => setHoveredRow(idx)}
+                                    onMouseLeave={() => setHoveredRow(null)}
+                                    className={`w-40 md:w-64 p-0 sticky left-0 z-20 border-r border-slate-200 dark:border-slate-700/50 h-full overflow-visible transition-colors duration-75 ${rowBg} ${hoverBg} ${hoveredRow === idx ? '!shadow-[inset_0_0_0_1000px_rgba(59,125,134,0.2),inset_0_0_0_1.5px_#3B7D86] dark:!shadow-[inset_0_0_0_1000px_rgba(255,255,255,0.2),inset_0_0_0_1.5px_#2DD4BF] z-30' : ''} hover:!shadow-[inset_0_0_0_1000px_rgba(59,125,134,0.2),inset_0_0_0_1.5px_#3B7D86] dark:hover:!shadow-[inset_0_0_0_1000px_rgba(255,255,255,0.2),inset_0_0_0_1.5px_#2DD4BF] relative hover:z-30`}
                                 >
                                     <div className={`w-full h-full flex items-center px-2 md:px-3`}>
                                         <TruncatedTooltip text={item.name} className={`w-full ${isSpecial ? 'text-left uppercase tracking-wide' : 'text-right pr-2'}`} />
                                     </div>
                                 </div>
 
-                                <div {...getCellProps(1)}>{formatNum(item.budget)}</div>
-                                <div {...getCellProps(2)}>{formatNum(item.lastPeriod)}</div>
-                                <div {...getCellProps(3, 'font-extrabold')}>{formatNum(item.realizedGP)}</div>
+                                <div {...getCellProps(1, '', hoveredRow === idx)}>{formatNum(item.budget)}</div>
+                                <div {...getCellProps(2, '', hoveredRow === idx)}>{formatNum(item.lastPeriod)}</div>
+                                <div {...getCellProps(3, 'font-extrabold', hoveredRow === idx)}>{formatNum(item.realizedGP)}</div>
 
-                                <div {...getCellProps(4, getValColor(item.lyDiff))}>
+                                <div {...getCellProps(4, getValColor(item.lyDiff), hoveredRow === idx)}>
                                     {formatNum(item.lyDiff)}
                                 </div>
-                                <div {...getCellProps(5, getValColor(item.budgetDiff))}>
+                                <div {...getCellProps(5, getValColor(item.budgetDiff), hoveredRow === idx)}>
                                     {formatNum(item.budgetDiff)}
                                 </div>
-                                <div {...getCellProps(6, getValColor(item.budgetPct))}>
+                                <div {...getCellProps(6, getValColor(item.budgetPct), hoveredRow === idx)}>
                                     {formatPct(item.budgetPct)}
                                 </div>
-                                <div {...getCellProps(7, getValColor(item.lyPct))} className={getCellProps(7, getValColor(item.lyPct)).className.replace('border-r border-slate-200 dark:border-slate-700/50', '')}>
+                                <div {...getCellProps(7, getValColor(item.lyPct), hoveredRow === idx)} className={getCellProps(7, getValColor(item.lyPct), hoveredRow === idx).className.replace('border-r border-slate-200 dark:border-slate-700/50', '')}>
                                     {formatPct(item.lyPct)}
                                 </div>
                             </div>
@@ -148,7 +149,7 @@ export const MonthlySalesTable = () => {
 
             {/* Row Detail Full Modal */}
             {selectedRow && (
-                <MonthlyDetailModal 
+                <MonthlyDetailModal
                     row={selectedRow}
                     onClose={() => setSelectedRow(null)}
                 />
