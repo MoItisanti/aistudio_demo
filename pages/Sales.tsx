@@ -29,7 +29,7 @@ const SalesContent = () => {
       return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
           <SalesCard
-            title="Satış Özeti"
+            title="Günlük Satış Özeti"
             lineData={SALES_TREND_DATA}
             barData={SALES_SUMMARY}
           />
@@ -74,7 +74,7 @@ const SalesContent = () => {
         <div className="relative inline-flex bg-theme-bg-light/80 dark:bg-black/20 p-1 rounded-full border border-slate-200/50 dark:border-white/5 shadow-sm">
           {/* Animated Sliding Pill */}
           <div
-            className="absolute top-1 bottom-1 w-[100px] sm:w-[120px] bg-theme-card-light dark:bg-theme-secondary rounded-full shadow-md transition-transform duration-300 ease-in-out"
+            className="absolute top-1 bottom-1 w-[100px] sm:w-[120px] bg-theme-accent dark:bg-theme-secondary rounded-full shadow-md transition-transform duration-300 ease-in-out"
             style={{
               transform: `translateX(${activeTab === 'daily' ? '0' : activeTab === 'monthly' ? '100%' : '200%'})`
             }}
@@ -82,7 +82,7 @@ const SalesContent = () => {
           <button
             onClick={() => setActiveTab('daily')}
             className={`relative z-10 w-[100px] sm:w-[120px] py-2 rounded-full text-[11px] font-bold transition-colors duration-300 ${activeTab === 'daily'
-              ? 'text-theme-text-main dark:text-theme-text-dark-main'
+              ? 'text-theme-text-dark-main dark:text-theme-text-dark-main'
               : 'text-theme-text-muted/80 hover:text-theme-primary dark:hover:text-theme-text-muted'
               }`}
           >
@@ -91,7 +91,7 @@ const SalesContent = () => {
           <button
             onClick={() => setActiveTab('monthly')}
             className={`relative z-10 w-[100px] sm:w-[120px] py-2 rounded-full text-[11px] font-bold transition-colors duration-300 ${activeTab === 'monthly'
-              ? 'text-theme-text-main dark:text-theme-text-dark-main'
+              ? 'text-theme-text-dark-main dark:text-theme-text-dark-main'
               : 'text-theme-text-muted/80 hover:text-theme-primary dark:hover:text-theme-text-muted'
               }`}
           >
@@ -100,7 +100,7 @@ const SalesContent = () => {
           <button
             onClick={() => setActiveTab('regional')}
             className={`relative z-10 w-[100px] sm:w-[120px] py-2 rounded-full text-[11px] font-bold transition-colors duration-300 ${activeTab === 'regional'
-              ? 'text-theme-text-main dark:text-theme-text-dark-main'
+              ? 'text-theme-text-dark-main dark:text-theme-text-dark-main'
               : 'text-theme-text-muted/80 hover:text-theme-primary dark:hover:text-theme-text-muted'
               }`}
           >

@@ -132,7 +132,7 @@ export const MatrixAnalysisChart = () => {
               {
                 type: 'rect',
                 x0: 0, x1: maxX, y0: 0, y1: maxY,
-                fillcolor: 'rgba(16, 185, 129, 0.04)',
+                fillcolor: 'rgba(16, 185, 129, 0.15)',
                 line: { width: 0 },
                 layer: 'below'
               },
@@ -140,7 +140,7 @@ export const MatrixAnalysisChart = () => {
               {
                 type: 'rect',
                 x0: 0, x1: maxX, y0: -maxY, y1: 0,
-                fillcolor: 'rgba(59, 130, 246, 0.04)',
+                fillcolor: 'rgba(59, 130, 246, 0.15)',
                 line: { width: 0 },
                 layer: 'below'
               },
@@ -148,7 +148,7 @@ export const MatrixAnalysisChart = () => {
               {
                 type: 'rect',
                 x0: -maxX, x1: 0, y0: 0, y1: maxY,
-                fillcolor: 'rgba(245, 158, 11, 0.04)',
+                fillcolor: 'rgba(245, 158, 11, 0.15)',
                 line: { width: 0 },
                 layer: 'below'
               },
@@ -156,7 +156,7 @@ export const MatrixAnalysisChart = () => {
               {
                 type: 'rect',
                 x0: -maxX, x1: 0, y0: -maxY, y1: 0,
-                fillcolor: 'rgba(239, 68, 68, 0.04)',
+                fillcolor: 'rgba(239, 68, 68, 0.15)',
                 line: { width: 0 },
                 layer: 'below'
               }

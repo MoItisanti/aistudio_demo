@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Table as TableIcon, TrendingUp } from 'lucide-react';
-import { ResponsiveContainer, ComposedChart, Area, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { ResponsiveContainer, ComposedChart, Line, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, LabelList } from 'recharts';
 import { MONTHS } from '../../../data';
 
 const CustomSalesTooltip = ({ active, payload, label }: any) => {
@@ -106,7 +106,7 @@ export const MonthlyDetailModal = ({ row, onClose }: { row: any, onClose: () => 
         <div className="bg-theme-primary px-3 py-2 md:px-4 md:py-2 flex justify-between items-center shrink-0 z-10 w-full">
           <div>
             <h3 className="text-white font-bold text-sm md:text-base">{row.name}</h3>
-            <span className="text-white/60 text-[10px] md:text-xs uppercase tracking-wider">Aylık Detay Analizi</span>
+            <span className="text-white/60 text-[10px] md:text-xs tracking-wider">Aylık Detay Analizi</span>
           </div>
           <div className="flex items-center gap-2 md:gap-4">
             <div className="flex bg-theme-card-light/10 rounded-lg p-1">
@@ -166,20 +166,20 @@ export const MonthlyDetailModal = ({ row, onClose }: { row: any, onClose: () => 
                 <div className="pl-2">Ay</div>
                 <div className="text-right">Geçen Yıl</div>
                 <div className="text-right">G. Yıl %</div>
-                <div className="text-right">Gerçekleşen</div>
+                <div className="text-right">Gerçekle.</div>
                 <div className="text-right pr-2">%</div>
               </div>
               {monthlyData.map((item, i) => (
                 <div key={i} className="grid grid-cols-5 p-3 text-xs border-b border-gray-50 dark:border-theme-primary/40/50 hover:bg-theme-bg-light dark:hover:bg-theme-card-light/5 transition-colors">
-                  <div className="font-semibold text-theme-text-main dark:text-gray-200 pl-2">{item.name}</div>
-                  <div className="text-right font-medium text-theme-text-main dark:text-theme-text-dark-muted">{formatNum(item.lastYear)}</div>
+                  <div className="font-semibold text-theme-text-muted dark:text-gray-200 pl-2">{item.name}</div>
+                  <div className="text-right font-medium text-theme-text-muted dark:text-theme-text-dark-muted">{formatNum(item.lastYear)}</div>
                   <div className="text-right font-bold text-theme-warning">{item.lastYearPct.toFixed(2)}%</div>
                   <div className="text-right font-medium text-theme-text-main dark:text-theme-text-dark-main">{formatNum(item.current)}</div>
                   <div className="text-right font-bold text-theme-secondary pr-2">{item.pct.toFixed(2)}%</div>
                 </div>
               ))}
               {/* Total Row */}
-              <div className="grid grid-cols-5 p-3 text-xs border-t-2 border-slate-200 dark:border-slate-600 bg-theme-bg-light dark:bg-slate-800 sticky bottom-0 z-10">
+              <div className="grid grid-cols-5 p-3 text-xs border-t-2 border-slate-300 dark:border-slate-600 bg-slate-200 dark:bg-slate-800 sticky bottom-0 z-10">
                 <div className="font-bold text-theme-primary dark:text-theme-text-dark-main pl-2">TOPLAM</div>
                 <div className="text-right font-bold text-theme-primary dark:text-theme-text-dark-main">{formatNum(totalLastYear)}</div>
                 <div className="text-right font-bold text-theme-warning">{avgLastYearPct.toFixed(2)}%</div>
@@ -191,17 +191,7 @@ export const MonthlyDetailModal = ({ row, onClose }: { row: any, onClose: () => 
             <div className="flex-1 min-h-0 bg-theme-card-light dark:bg-theme-card-dark/30 border border-theme-secondary/40 dark:border-slate-700/50 rounded-b-xl shadow-sm overflow-hidden z-10 relative">
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart data={monthlyData} margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
-                  <defs>
-                    <linearGradient id="colorPct" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#3B7D86" stopOpacity={0.3} />
-                      <stop offset="80%" stopColor="#3B7D86" stopOpacity={0} />
-                    </linearGradient>
-                    <linearGradient id="colorLastYearPct" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#F59E0B" stopOpacity={0.3} />
-                      <stop offset="80%" stopColor="#F59E0B" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#666" strokeOpacity={0.2} yAxisId="line" />
+                  <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#666" strokeOpacity={0.3} yAxisId="line" />
                   <XAxis
                     dataKey="name"
                     axisLine={false}
@@ -235,30 +225,36 @@ export const MonthlyDetailModal = ({ row, onClose }: { row: any, onClose: () => 
                     maxBarSize={24}
                   />
 
-                  <Area
+                  <Line
                     yAxisId="line"
-                    type="monotone"
+                    type="linear"
                     dataKey="lastYearPct"
                     name="G. Yıl"
                     stroke="#F59E0B"
-                    fillOpacity={1}
-                    fill="url(#colorLastYearPct)"
                     strokeWidth={3}
+                    dot={false}
                     activeDot={{ r: 6, stroke: '#fff', strokeWidth: 2 }}
                     animationDuration={1000}
                   />
-                  <Area
+                  <Line
                     yAxisId="line"
-                    type="monotone"
+                    type="linear"
                     dataKey="pct"
                     name="Gerçekleşen"
                     stroke="#3B7D86"
-                    fillOpacity={1}
-                    fill="url(#colorPct)"
                     strokeWidth={3}
+                    dot={{ r: 3, strokeWidth: 1, fill: '#3B7D86' }}
                     activeDot={{ r: 6, stroke: '#fff', strokeWidth: 2 }}
                     animationDuration={1000}
-                  />
+                  >
+                    <LabelList
+                      dataKey="pct"
+                      position="top"
+                      formatter={(val: number) => `${val.toFixed(1)}%`}
+                      style={{ fontSize: '10px', fill: '#3B7D86', fontWeight: 600 }}
+                      offset={8}
+                    />
+                  </Line>
                 </ComposedChart>
               </ResponsiveContainer>
             </div>
