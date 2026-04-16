@@ -32,7 +32,7 @@ const CustomComparisonLabel = (props: any) => {
   );
 };
 
-export const SalesCard = ({ title, lineData, barData }: any) => {
+export const SalesCard = ({ title, lineData, barData, donutTitle = "Kanal Dağılımı", donutData = SALES_CHANNEL_DATA, barChartTitle = "Karşılaştırma & Tahmin" }: any) => {
   return (
     <div className="bg-theme-card-light dark:bg-theme-card-dark rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col">
       <CardHeader title={title} />
@@ -59,7 +59,7 @@ export const SalesCard = ({ title, lineData, barData }: any) => {
 
         {/* 2. Column Chart: Comparison + Progress Bars (25%) */}
         <div className="col-span-12 lg:col-span-3 h-80 flex flex-col border-t lg:border-t-0 lg:border-l border-dashed border-slate-200 dark:border-slate-700/50 pt-6 lg:pt-0 lg:pl-6">
-          <h4 className="text-[10px] font-bold text-theme-text-muted/80 uppercase mb-4 text-center">Karşılaştırma & Tahmin</h4>
+          <h4 className="text-[10px] font-bold text-theme-text-muted/80 uppercase mb-4 text-center">{barChartTitle}</h4>
           <div className="flex-1 min-h-0 mb-4">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={barData} margin={{ top: 20, right: 0, left: -20, bottom: 0 }} barSize={25}>
@@ -105,11 +105,11 @@ export const SalesCard = ({ title, lineData, barData }: any) => {
 
         {/* 3. Donut Chart: Channel Distribution (25%) */}
         <div className="col-span-12 lg:col-span-3 h-80 flex flex-col border-t lg:border-t-0 lg:border-l border-dashed border-slate-200 dark:border-slate-700/50 pt-6 lg:pt-0 lg:pl-6 relative">
-          <h4 className="text-[10px] font-bold text-theme-text-muted/80 uppercase mb-4 text-center">Kanal Dağılımı</h4>
+          <h4 className="text-[10px] font-bold text-theme-text-muted/80 uppercase mb-4 text-center">{donutTitle}</h4>
 
           <div className="flex-1 min-h-0">
             {/* Always show Sales Data */}
-            <SalesDonutChart data={SALES_CHANNEL_DATA} />
+            <SalesDonutChart data={donutData} />
           </div>
         </div>
 

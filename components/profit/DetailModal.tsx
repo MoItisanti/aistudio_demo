@@ -121,7 +121,7 @@ export const DetailModal = ({ row, onClose }: { row: any, onClose: () => void })
                   </div>
                 ))}
                 {/* Total Row */}
-                <div className="grid grid-cols-5 p-3 text-xs border-t border-theme-secondary/40 dark:border-slate-700/80 bg-theme-bg-light dark:bg-black/20 sticky bottom-0 z-10 transition-colors">
+                <div className="grid grid-cols-5 p-3 text-xs border-t border-theme-secondary/40 dark:border-slate-700/80 bg-slate-200 dark:bg-black/20 sticky bottom-0 z-10 transition-colors">
                   <div className="font-bold text-theme-text-main dark:text-gray-200 pl-2">Toplam</div>
                   <div className="text-right font-bold text-theme-text-main dark:text-theme-text-dark-muted">{formatNum(row.current)}</div>
                   <div className="text-right font-bold text-theme-secondary">{row.share.toFixed(1)}%</div>

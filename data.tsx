@@ -70,6 +70,12 @@ export const SALES_CHANNEL_DATA = [
   { name: 'Direkt', value: 25, color: CHART_PALETTE[4] },
 ];
 
+export const FACTORY_DIST_DATA = [
+  { name: 'İzmir', value: 50, color: CHART_PALETTE[4] },
+  { name: 'Eskişehir', value: 30, color: CHART_PALETTE[1] },
+  { name: 'Urfa', value: 20, color: CHART_PALETTE[2] },
+];
+
 export const COMPARISON_DATA = MONTHS.map((month, i) => ({
   name: month,
   sales24: Math.floor(Math.random() * 50) + 100,
@@ -79,6 +85,33 @@ export const COMPARISON_DATA = MONTHS.map((month, i) => ({
   forecast24: Math.floor(Math.random() * 45) + 95,
   forecast25: Math.floor(Math.random() * 55) + 115,
 }));
+const daysOfWeek = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
+
+export const MILK_30_DAYS_DATA = Array.from({ length: 30 }, (_, i) => {
+  const actual = Math.floor(Math.random() * 900) + 100;
+  const dayName = daysOfWeek[(i + 1) % 7];
+  const dayNum = (i + 1).toString().padStart(2, '0');
+  return {
+    name: `${dayNum}.${dayName}`,
+    actual,
+  };
+});
+
+export const MILK_24_WEEKS_DATA = Array.from({ length: 24 }, (_, i) => {
+  const actual = Math.floor(Math.random() * 900) + 100;
+  return {
+    name: `H${i + 1}`,
+    actual,
+  };
+});
+
+export const MILK_12_MONTHS_DATA = MONTHS.map((m) => {
+  const actual = Math.floor(Math.random() * 900) + 100;
+  return {
+    name: m,
+    actual,
+  };
+});
 
 export const TREND_DATA = MONTHS.map((month, i) => ({
   name: month,

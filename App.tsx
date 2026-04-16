@@ -8,6 +8,7 @@ import ExecutiveContent from './pages/Executive';
 import ProfitContent from './pages/Profit';
 import MarketContent from './pages/Market';
 import SalesContent from './pages/Sales';
+import MilkContent from './pages/Milk';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<PageID>('home');
@@ -31,9 +32,9 @@ const App: React.FC = () => {
       case 'profit': return <ProfitContent darkMode={darkMode} />;
       case 'market': return <MarketContent selectedBrands={selectedBrands} />;
       case 'sales': return <SalesContent />;
+      case 'milk': return <MilkContent />;
       case 'ops':
       case 'planning':
-      case 'milk':
       case 'logistics':
       case 'purchasing':
       case 'hr':

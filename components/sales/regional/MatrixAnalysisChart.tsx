@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import Plot from 'react-plotly.js';
+import { CardHeader } from '../../Shared';
 
 // Dummy data using Product Hierarchy
 const PRODUCT_DATA = [
@@ -50,152 +51,154 @@ export const MatrixAnalysisChart = () => {
   return (
     <div className="w-full bg-theme-card-light dark:bg-theme-card-dark rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700/50 flex flex-col transition-all duration-300 relative group animate-in fade-in slide-in-from-bottom-4 h-[650px] overflow-hidden">
       {/* Header */}
-      <div className={`p-4 md:p-5 flex items-start justify-between bg-gradient-to-r from-theme-bg-light to-theme-card-light dark:from-theme-card-dark dark:to-theme-bg-dark border-b border-slate-200 dark:border-slate-700/50 rounded-t-2xl shrink-0`}>
-        <div>
-          <h3 className={`font-bold text-[14px] xl:text-[18px] text-theme-text-main/80 dark:text-theme-text-dark-main/80 tracking-tight`}>
-            Kategori Matriks Analizi
-          </h3>
-          <p className={`text-[10px] xl:text-[12px] text-theme-text-muted mt-1 dark:text-theme-text-dark-muted font-medium`}>
-            Kategorilerin Ebitda ve Büyüme düzlemindeki dağılımı (Balon Boyutu: Brüt Satış)
-          </p>
+      <CardHeader title="Kategori Matriks Analizi" />
+
+      <div className="flex-1 w-full h-full p-2 relative overflow-x-auto custom-scrollbar">
+        <div className="min-w-[800px] h-full w-full relative">
+          <Plot
+            data={[
+              {
+                x: x,
+                y: y,
+                text: text,
+                name: 'Kategoriler',
+                mode: 'text+markers',
+                type: 'scatter',
+                textposition: 'top center',
+                textfont: {
+                  family: 'Google Sans',
+                  size: 11,
+                  color: '#475569'
+                },
+                hoverinfo: 'text',
+                hovertext: hovertext,
+                marker: {
+                  size: size,
+                  color: color,
+                  sizemode: 'area', // Size reflects the exact area
+                  opacity: 0.8,
+                  line: {
+                    width: 2,
+                    color: 'white'
+                  }
+                }
+              }
+            ]}
+            layout={{
+              autosize: true,
+              margin: { t: 20, r: 20, b: 40, l: 70 },
+              paper_bgcolor: 'transparent',
+              plot_bgcolor: 'transparent',
+              hoverlabel: {
+                bgcolor: '#1e293b',
+                font: { color: 'white', family: 'Google Sans', size: 13 },
+                bordercolor: '#334155'
+              },
+              xaxis: {
+                title: {
+                  text: 'Ebitda (₺)',
+                  font: { size: 12, color: '#64748B', weight: 'bold' }
+                },
+                zeroline: true,
+                zerolinewidth: 2,
+                zerolinecolor: '#cbd5e1',
+                showgrid: false,
+                range: [-maxX, maxX],
+                tickfont: { color: '#94A3B8' },
+                tickformat: '.2s' // Format gracefully
+              },
+              yaxis: {
+                title: {
+                  text: 'Ebitda Değişimi (%)',
+                  font: { size: 12, color: '#64748B', weight: 'bold' }
+                },
+                zeroline: true,
+                zerolinewidth: 2,
+                zerolinecolor: '#cbd5e1',
+                showgrid: false,
+                range: [-maxY, maxY],
+                tickfont: { color: '#94A3B8' },
+                ticksuffix: '%'
+              },
+              shapes: [
+                // Top Right: High Profit, High Growth
+                {
+                  type: 'rect',
+                  x0: 0, x1: maxX, y0: 0, y1: maxY,
+                  fillcolor: 'rgba(16, 185, 129, 0.15)',
+                  line: { width: 0 },
+                  layer: 'below'
+                },
+                // Bottom Right: High Profit, Low Growth
+                {
+                  type: 'rect',
+                  x0: 0, x1: maxX, y0: -maxY, y1: 0,
+                  fillcolor: 'rgba(59, 130, 246, 0.15)',
+                  line: { width: 0 },
+                  layer: 'below'
+                },
+                // Top Left: Low Profit (Loss), High Growth
+                {
+                  type: 'rect',
+                  x0: -maxX, x1: 0, y0: 0, y1: maxY,
+                  fillcolor: 'rgba(245, 158, 11, 0.15)',
+                  line: { width: 0 },
+                  layer: 'below'
+                },
+                // Bottom Left: Low Profit (Loss), Low Growth
+                {
+                  type: 'rect',
+                  x0: -maxX, x1: 0, y0: -maxY, y1: 0,
+                  fillcolor: 'rgba(239, 68, 68, 0.15)',
+                  line: { width: 0 },
+                  layer: 'below'
+                }
+              ],
+              annotations: [
+                {
+                  x: maxX / 2, y: maxY - 5,
+                  text: 'I.Bölge<br>(Kârlı Büyüme)',
+                  showarrow: false,
+                  font: { size: 12, color: '#10b981', weight: 'bold' },
+                  opacity: 0.5
+                },
+                {
+                  x: maxX / 2, y: -maxY + 5,
+                  text: 'IV.Bölge<br>(Kâr Var, Büyüme Yok)',
+                  showarrow: false,
+                  font: { size: 12, color: '#3b82f6', weight: 'bold' },
+                  opacity: 0.5
+                },
+                {
+                  x: -maxX / 2, y: maxY - 5,
+                  text: 'II.Bölge<br>(Zarar Var, Büyüme Var)',
+                  showarrow: false,
+                  font: { size: 12, color: '#f59e0b', weight: 'bold' },
+                  opacity: 0.5
+                },
+                {
+                  x: -maxX / 2, y: -maxY + 5,
+                  text: 'III.Bölge<br>(Zarar Var, Büyüme Yok)',
+                  showarrow: false,
+                  font: { size: 12, color: '#ef4444', weight: 'bold' },
+                  opacity: 0.5
+                }
+              ]
+            }}
+            useResizeHandler={true}
+            style={{ width: '100%', height: '100%' }}
+            config={{ displayModeBar: false, responsive: true }}
+          />
         </div>
       </div>
 
-      <div className="flex-1 w-full h-full p-2 relative">
-        <Plot
-          data={[
-            {
-              x: x,
-              y: y,
-              text: text,
-              name: 'Kategoriler',
-              mode: 'text+markers',
-              type: 'scatter',
-              textposition: 'top center',
-              textfont: {
-                family: 'Google Sans',
-                size: 11,
-                color: '#475569'
-              },
-              hoverinfo: 'text',
-              hovertext: hovertext,
-              marker: {
-                size: size,
-                color: color,
-                sizemode: 'area', // Size reflects the exact area
-                opacity: 0.8,
-                line: {
-                  width: 2,
-                  color: 'white'
-                }
-              }
-            }
-          ]}
-          layout={{
-            autosize: true,
-            margin: { t: 20, r: 20, b: 40, l: 70 },
-            paper_bgcolor: 'transparent',
-            plot_bgcolor: 'transparent',
-            hoverlabel: {
-              bgcolor: '#1e293b',
-              font: { color: 'white', family: 'Google Sans', size: 13 },
-              bordercolor: '#334155'
-            },
-            xaxis: {
-              title: {
-                text: 'Ebitda (₺)',
-                font: { size: 12, color: '#64748B', weight: 'bold' }
-              },
-              zeroline: true,
-              zerolinewidth: 2,
-              zerolinecolor: '#cbd5e1',
-              showgrid: false,
-              range: [-maxX, maxX],
-              tickfont: { color: '#94A3B8' },
-              tickformat: '.2s' // Format gracefully
-            },
-            yaxis: {
-              title: {
-                text: 'Ebitda Değişimi (%)',
-                font: { size: 12, color: '#64748B', weight: 'bold' }
-              },
-              zeroline: true,
-              zerolinewidth: 2,
-              zerolinecolor: '#cbd5e1',
-              showgrid: false,
-              range: [-maxY, maxY],
-              tickfont: { color: '#94A3B8' },
-              ticksuffix: '%'
-            },
-            shapes: [
-              // Top Right: High Profit, High Growth
-              {
-                type: 'rect',
-                x0: 0, x1: maxX, y0: 0, y1: maxY,
-                fillcolor: 'rgba(16, 185, 129, 0.15)',
-                line: { width: 0 },
-                layer: 'below'
-              },
-              // Bottom Right: High Profit, Low Growth
-              {
-                type: 'rect',
-                x0: 0, x1: maxX, y0: -maxY, y1: 0,
-                fillcolor: 'rgba(59, 130, 246, 0.15)',
-                line: { width: 0 },
-                layer: 'below'
-              },
-              // Top Left: Low Profit (Loss), High Growth
-              {
-                type: 'rect',
-                x0: -maxX, x1: 0, y0: 0, y1: maxY,
-                fillcolor: 'rgba(245, 158, 11, 0.15)',
-                line: { width: 0 },
-                layer: 'below'
-              },
-              // Bottom Left: Low Profit (Loss), Low Growth
-              {
-                type: 'rect',
-                x0: -maxX, x1: 0, y0: -maxY, y1: 0,
-                fillcolor: 'rgba(239, 68, 68, 0.15)',
-                line: { width: 0 },
-                layer: 'below'
-              }
-            ],
-            annotations: [
-              {
-                x: maxX / 2, y: maxY - 5,
-                text: 'I.Bölge<br>(Kârlı Büyüme)',
-                showarrow: false,
-                font: { size: 12, color: '#10b981', weight: 'bold' },
-                opacity: 0.5
-              },
-              {
-                x: maxX / 2, y: -maxY + 5,
-                text: 'IV.Bölge<br>(Kâr Var, Büyüme Yok)',
-                showarrow: false,
-                font: { size: 12, color: '#3b82f6', weight: 'bold' },
-                opacity: 0.5
-              },
-              {
-                x: -maxX / 2, y: maxY - 5,
-                text: 'II.Bölge<br>(Zarar Var, Büyüme Var)',
-                showarrow: false,
-                font: { size: 12, color: '#f59e0b', weight: 'bold' },
-                opacity: 0.5
-              },
-              {
-                x: -maxX / 2, y: -maxY + 5,
-                text: 'III.Bölge<br>(Zarar Var, Büyüme Yok)',
-                showarrow: false,
-                font: { size: 12, color: '#ef4444', weight: 'bold' },
-                opacity: 0.5
-              }
-            ]
-          }}
-          useResizeHandler={true}
-          style={{ width: '100%', height: '100%' }}
-          config={{ displayModeBar: false, responsive: true }}
-        />
+      {/* Footnote */}
+      <div className="px-3 pb-1 md:px-3 md:pb-1">
+        <div className="bg-slate-100/50 dark:bg-slate-800/30 p-3 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
+          <p className="text-[11px] text-theme-text-muted dark:text-theme-text-dark-muted flex items-center">
+            <span className="font-bold mr-1">Not:</span> Grafik, kategorilerin kârlılık (EBITDA) ve büyüme performanslarına göre 4 ana bölgede nasıl konumlandığını göstermektedir. Balon büyüklükleri ilgili kategorinin brüt satış hacmini temsil eder. Alanı seçerek zoom yapabilirsiniz.
+          </p>
+        </div>
       </div>
     </div>
   );

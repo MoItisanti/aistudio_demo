@@ -21,6 +21,8 @@ const SALES_SUMMARY = [
   { name: 'Tahmini Bitiş', value: 12800, fill: CHART_PALETTE[2] },
 ];
 
+const SALES_SUMMARY_MONTHLY = SALES_SUMMARY.filter(item => item.name !== 'Tahmini Bitiş');
+
 const SalesContent = () => {
   const [activeTab, setActiveTab] = useState<'daily' | 'monthly' | 'regional'>('daily');
 
@@ -52,7 +54,8 @@ const SalesContent = () => {
           <SalesCard
             title="Aylık Satış Özeti"
             lineData={SALES_TREND_DATA}
-            barData={SALES_SUMMARY}
+            barData={SALES_SUMMARY_MONTHLY}
+            barChartTitle="Karşılaştırma"
           />
           <MonthlySalesTable />
         </div>
